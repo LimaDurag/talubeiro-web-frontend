@@ -1,27 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React from 'react';
 import {app, analytics} from './config/firebase.js'
+import Background from './components/backgroundComponent/background';
+import './global.css';
 
-function App() {
+export function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="container">
+        <h1>Entrar</h1>
+        <div className="loginBox">
+          <form>
+            <div className="inputContainer">
+              <label htmlFor="username">Nome de Usuário</label>
+              <input type="text" name="username" id="username" />
+            </div>
+            <div className="inputContainer">
+              <label htmlFor="password">Senha</label>
+              <input type="password" name="password" id="password" />
+            </div>
+          </form>
+
+          <button className="button">Login</button>
+          <div className="line" />
+          <p className="textCreateAcount">Não tem uma conta?</p>
+          <button className="button">Criar</button>
+        </div>
+      </div>
+    </>
   );
 }
-
-export default App;
