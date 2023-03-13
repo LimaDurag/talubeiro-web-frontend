@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 
+import {app, analytics} from './config/firebase.js'
+
 function App() {
   return (
     <div className="App">
