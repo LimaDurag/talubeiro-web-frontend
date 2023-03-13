@@ -1,3 +1,7 @@
+//import firebase from 'firebase';
+//import { auth } from '../config/firebase.js'
+import userAPI from "./userAPI.js"; 
+
 import { getAuth, 
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword, 
@@ -7,19 +11,27 @@ const auth = getAuth();
 auth.useDeviceLanguage();
 const googleProvider = GoogleAuthProvider();
 
+
+
 const authFirebase = {
-    register: (email, password, ...props) => {
+    register: (email, password, name) => {
         createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredencial) => {
+        .then(async (userCredencial) => {
             const user = userCredencial.user;
-            console.log("USER CREATED:");
-            console.log(user)
+            console.log("USER AUTHENTICATED:");
+            console.log(user);
+
+            //CREATE USER ON DATABASE
+            return userAPI.create(name, password, email, await user.getIdToken());
+            
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
 
             console.log("ERRO AO CRIAR USUÁRIO: ERROR CODE:"+errorCode+" ERROR MESSAGE: "+errorMessage);
+
+            return 0;
         })
     },
     singin: (email, password) => {
@@ -37,7 +49,7 @@ const authFirebase = {
         })
     },
     singinWithGoogle: () => {
-        signInWithPopup(auth, provider)
+        signInWithPopup(auth, googleProvider)
         .then((result) => {
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
