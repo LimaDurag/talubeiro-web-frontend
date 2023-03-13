@@ -1,4 +1,5 @@
 import React from 'react';
+import {app, analytics} from './config/firebase.js'
 import Background from './components/backgroundComponent/background';
 import './global.css';
 
