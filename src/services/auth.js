@@ -1,21 +1,22 @@
 //import firebase from 'firebase';
-//import { auth } from '../config/firebase.js'
+import { app } from '../config/firebase.js'
 import userAPI from "./userAPI.js"; 
 
 import { getAuth, 
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword, 
-    GoogleAuthProvider } from "firebase/auth";
+    GoogleAuthProvider,
+    signInWithPopup } from "firebase/auth";
 
-const auth = getAuth();
+const auth = getAuth(app);
 auth.useDeviceLanguage();
-const googleProvider = GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
 
 
 const authFirebase = {
     register: (email, password, name) => {
-        createUserWithEmailAndPassword(auth, email, password)
+        return createUserWithEmailAndPassword(auth, email, password)
         .then(async (userCredencial) => {
             const user = userCredencial.user;
             console.log("USER AUTHENTICATED:");
@@ -39,13 +40,15 @@ const authFirebase = {
         .then((userCredencial) => {
             const user = userCredencial.user;
             console.log("USER LOGGED:");
-            console.log(user)
+            console.log(user);
+            return 200;
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
 
             console.log("ERRO AO FAZER LOGIN: ERROR CODE:"+errorCode+" ERROR MESSAGE: "+errorMessage);
+            return 0;
         })
     },
     singinWithGoogle: () => {

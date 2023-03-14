@@ -1,31 +1,20 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {app, analytics} from './config/firebase.js'
 import Background from './components/backgroundComponent/background';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import './global.css';
 
-export function App() {
-  return (
-    <>
-      <div className="container">
-        <h1>Entrar</h1>
-        <div className="loginBox">
-          <form>
-            <div className="inputContainer">
-              <label htmlFor="username">Nome de Usuário</label>
-              <input type="text" name="username" id="username" />
-            </div>
-            <div className="inputContainer">
-              <label htmlFor="password">Senha</label>
-              <input type="password" name="password" id="password" />
-            </div>
-          </form>
+import  Login  from './pages/loginPage/login.js';
+import  Register  from "./pages/registerPage/register.js";
 
-          <button className="button">Login</button>
-          <div className="line" />
-          <p className="textCreateAcount">Não tem uma conta?</p>
-          <button className="button">Criar</button>
-        </div>
-      </div>
-    </>
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route index path="/" Component={Login}/>
+        <Route path="/register" Component={Register}/>
+      </Routes>
+    </BrowserRouter>
   );
 }

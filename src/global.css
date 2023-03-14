@@ -9,6 +9,7 @@ html,
 body {
   font-family: 'Inter', sans-serif;
 }
+
 .container {
   width: 100vw;
   height: 100vh;
@@ -16,4 +17,5 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background-color: #0542BF;
 }

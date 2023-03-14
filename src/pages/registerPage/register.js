@@ -1,10 +1,24 @@
-import React from 'react';
+import React, {useState} from 'react';
 import TextField from '@mui/material/TextField';
 import Background from '../../components/backgroundComponent/background';
 import '../../global.css';
 import './styles.css';
 
-export function Register() {
+import { Link } from 'react-router-dom';
+import auth from '../../services/auth.js'
+
+export default function Register() {
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [name, setName] = useState("");
+  const [cod, setCod] = useState(0);
+
+  async function handleCreateUser(){
+    const response = await auth.register(email, senha, name);
+    console.log(response);
+    setCod(response);
+  }
+
   return (
     <>
       <Background />
@@ -19,6 +33,7 @@ export function Register() {
                 id="filled-required"
                 label="NOME DE USUÁRIO"
                 variant="filled"
+                onChange={(e)=> {setName(e.target.value)}}
               />
             </div>
             <div className="inputContainer">
@@ -30,6 +45,7 @@ export function Register() {
                 autoComplete="current-password"
                 variant="filled"
                 required
+                onChange={(e) => {setSenha(e.target.value)}}
               />
             </div>
             <div className="inputContainer">
@@ -40,12 +56,14 @@ export function Register() {
                 type="email"
                 variant="filled"
                 required
+                onChange={(e)=> {setEmail(e.target.value)}}
               />
             </div>
           </form>
           <div className="line" />
-          <button className="button-green">Criar</button>
-          <p className="textCreateAcount"> Ou </p>
+          <button className="button-green" onClick={handleCreateUser}>Criar</button>
+          {/** DEBUG: APAGAR DEPOIS ESSA LINHA */} <p>Código: {cod}</p>
+          <p className="textCreateAcount"><Link to="/"> Voltar </Link> </p>
           {/* google auth */}
         </div>
       </main>
