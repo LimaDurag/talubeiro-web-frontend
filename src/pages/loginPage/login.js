@@ -49,6 +49,7 @@ export default function Login() {
           </form>
 
           <button className="button-red" onClick={handleLogInWithEmailAndPassword}>Login</button>
+          <span className="button-forget"><Link to="/recover">Esqueceu a Senha?</Link></span>
           <div className="line" />
           <p className="textCreateAcount">Não tem uma conta?</p>
           <button className="button-green"><Link to="/register"> Criar </Link> </button>

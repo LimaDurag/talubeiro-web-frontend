@@ -3,7 +3,8 @@ import { app } from '../config/firebase.js'
 import userAPI from "./userAPI.js"; 
 
 import { getAuth, 
-    createUserWithEmailAndPassword, 
+    createUserWithEmailAndPassword,
+    sendPasswordResetEmail, 
     signInWithEmailAndPassword, 
     GoogleAuthProvider,
     signInWithPopup } from "firebase/auth";
@@ -36,7 +37,7 @@ const authFirebase = {
         })
     },
     singin: (email, password) => {
-        signInWithEmailAndPassword(auth, email, password)
+        return signInWithEmailAndPassword(auth, email, password)
         .then((userCredencial) => {
             const user = userCredencial.user;
             console.log("USER LOGGED:");
@@ -69,7 +70,20 @@ const authFirebase = {
 
             console.log("ERRO AO FAZER LOGIN: ERROR CODE:"+errorCode+" ERROR MESSAGE: "+errorMessage);
         });
+    },
+    sendRecoverEmail: (email) => {
+        return sendPasswordResetEmail(auth, email)
+        .then(() => {
+            return 200;
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log("ERRO AO FAZER LOGIN: ERROR CODE:"+errorCode+" ERROR MESSAGE: "+errorMessage);
+          });
+        
     }
+    
 }
 
 export default authFirebase;
