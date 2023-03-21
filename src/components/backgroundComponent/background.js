@@ -1,16 +1,14 @@
 import React from 'react';
 import '../../global.css';
-import background from '../../assets/background.png';
 
 function Background() {
   return (
     <div className="container">
-      <img
-        src={background}
-        alt="Fundo com dados coloridos"
-        className="backgroundImg"
-      />
-      <div className="fotter"></div>
+      <div className="line1" />
+      <div className="line2" />
+      <div className="line3" />
+      <div className="line4" />
+      <div className="line5" />
     </div>
   );
 }

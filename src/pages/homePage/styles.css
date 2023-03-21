@@ -1,21 +1,21 @@
-.loginBox {
+.menu-box {
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
+  flex: 1;
   flex-direction: column;
   background-color: #f2f2f2;
-  width: 400px;
-  height: 616px;
   border-radius: 103px;
   margin: 25px;
-
-  /* box-shadow: 20px 15px 0px 0px rgba(218, 164, 4, 1); */
+  width: 40vw;
+  height: 70vh;
+  font-size: 1em;
+  box-shadow: 20px 15px 0px 0px rgba(218, 164, 4, 1);
 }
 
-.loginBox .loginTitle {
+.menu-box .menu-title {
   font-weight: 900;
-  font-size: 64px;
-  margin: 50px 0px 35px 35px;
+  font-size: 3em;
+
+  text-align: cente;
 }
 
 .loginBox form {

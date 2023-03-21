@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
+  flex: 1;
 }
 
 html,
@@ -11,11 +12,12 @@ body {
 }
 
 .container {
+  flex: 1;
   width: 100vw;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #0542BF;
+  background-color: #0542bf;
 }
