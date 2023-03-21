@@ -22,6 +22,12 @@ export default function Register() {
     }
   }
 
+  async function handleLogInWithGoogle(){
+    const response = await auth.singinWithGoogle();
+    if (response != 0) redirect("/");
+  }
+
+
   return (
     <>
       <main className="container">
@@ -62,7 +68,7 @@ export default function Register() {
               />
             </div>
           <button className="button-green" onClick={handleCreateUser}>Criar</button>
-          <img src={GoogleSignInNormalImage} width="50px" />
+          <img src={GoogleSignInNormalImage} onClick={handleLogInWithGoogle} width="50px" />
           </form>
           <p className="textCreateAcount"><Link to="/"> Voltar </Link> </p>
           {/* google auth */}

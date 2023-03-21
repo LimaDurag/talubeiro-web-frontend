@@ -24,8 +24,9 @@ const authFirebase = {
             console.log(user);
 
             //CREATE USER ON DATABASE
-            return userAPI.create(name, password, email, await user.getIdToken());
+            userAPI.create(name, email, await user.getIdToken());
             
+            return userCredencial;
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -42,7 +43,7 @@ const authFirebase = {
             const user = userCredencial.user;
             console.log("USER LOGGED:");
             console.log(user);
-            return 200;
+            return userCredencial;
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -53,14 +54,16 @@ const authFirebase = {
         })
     },
     singinWithGoogle: () => {
-        signInWithPopup(auth, googleProvider)
+        return signInWithPopup(auth, googleProvider)
         .then((result) => {
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
             const user = result.user;
 
             console.log("USER CREATED W/ GOOGLE:");
-            console.log(user)
+            console.log(user);
+
+            return credential;
             
         }).catch((error) => {
             const errorCode = error.code;
@@ -69,6 +72,8 @@ const authFirebase = {
             const credential = GoogleAuthProvider.credentialFromError(error);
 
             console.log("ERRO AO FAZER LOGIN: ERROR CODE:"+errorCode+" ERROR MESSAGE: "+errorMessage);
+
+            return 0;
         });
     },
     sendRecoverEmail: (email) => {
