@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import TextField from '@mui/material/TextField';
-import Divider from "@mui/material/Divider";
+import { redirect } from "react-router-dom";
 
 import '../../global.css';
 import './styles.css';
@@ -17,7 +17,16 @@ export default function Register() {
 
   async function handleCreateUser(){
     const response = await auth.register(email, senha, name);
+    if(response == 200){
+      redirect('/');
+    }
   }
+
+  async function handleLogInWithGoogle(){
+    const response = await auth.singinWithGoogle();
+    if (response != 0) redirect("/");
+  }
+
 
   return (
     <>
@@ -59,8 +68,7 @@ export default function Register() {
               />
             </div>
           <button className="button-green" onClick={handleCreateUser}>Criar</button>
-          {/* <Divider variant="middle" light={true} > OU </Divider> */}
-          <img src={GoogleSignInNormalImage} width="50px" />
+          <img src={GoogleSignInNormalImage} onClick={handleLogInWithGoogle} width="50px" />
           </form>
           <p className="textCreateAcount"><Link to="/"> Voltar </Link> </p>
           {/* google auth */}

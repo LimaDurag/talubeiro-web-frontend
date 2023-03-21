@@ -4,17 +4,16 @@
   justify-content: flex-start;
   flex-direction: column;
   background-color: #f2f2f2;
-  width: 400px;
-  height: 616px;
+  width: 417px;
+  height: 605px;
   border-radius: 103px;
-  margin: 25px;
 
-  /* box-shadow: 20px 15px 0px 0px rgba(218, 164, 4, 1); */
+  box-shadow: 20px 15px 0px 0px rgba(218, 164, 4, 1);
 }
 
 .loginBox .loginTitle {
   font-weight: 900;
-  font-size: 64px;
+  font-size: 58px;
   margin: 50px 0px 35px 35px;
 }
 

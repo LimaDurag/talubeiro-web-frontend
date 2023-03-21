@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import TextField from '@mui/material/TextField';
 import { Link } from 'react-router-dom';
 import Background from '../../components/backgroundComponent/background';
@@ -7,15 +7,17 @@ import './styles.css';
 
 import auth from '../../services/auth.js';
 
+import { AuthContext } from '../../context/authContext.js';
+
 export default function Login() {
   const [email, setEmail] = useState(' ');
   const [senha, setSenha] = useState(' ');
-  const [logged, setLogged] = useState(false);
+
+  const { userCredencial, setUserCredencial } = useContext(AuthContext);
 
   async function handleLogInWithEmailAndPassword() {
-    console.log(email);
     const response = await auth.singin(email, senha);
-    if (response === 200 || response === 201) setLogged(true);
+    if (response != 0) setUserCredencial(response);
   }
 
   return (
@@ -58,6 +60,9 @@ export default function Login() {
           >
             Login
           </button>
+          <span className="button-forget">
+            <Link to="/recover">Esqueceu a Senha?</Link>
+          </span>
           <div className="line" />
           <p className="textCreateAcount">Não tem uma conta?</p>
           <button className="button-green">
