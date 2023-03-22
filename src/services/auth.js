@@ -24,7 +24,7 @@ const authFirebase = {
             console.log(user);
 
             //CREATE USER ON DATABASE
-            userAPI.create(name, email, await user.getIdToken());
+            userAPI.create(name, email, user.uid);
             
             return userCredencial;
         })
@@ -37,13 +37,13 @@ const authFirebase = {
             return 0;
         })
     },
-    singin: (email, password) => {
+    singin: async (email, password) => {
         return signInWithEmailAndPassword(auth, email, password)
         .then((userCredencial) => {
             const user = userCredencial.user;
             console.log("USER LOGGED:");
             console.log(user);
-            return userCredencial;
+            return user;
         })
         .catch((error) => {
             const errorCode = error.code;

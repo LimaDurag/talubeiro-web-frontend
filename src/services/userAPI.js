@@ -6,8 +6,8 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 
 const userAPI = {
-    create: (name, password, email, token) => {
-        api
+    create: (name, email, token) => {
+        return api
         .post('/User', {
             name: name,
             email: email,
@@ -22,7 +22,7 @@ const userAPI = {
         })
     },
     getByToken: (token) => {
-        api
+        return api
         .get('User/'+token)
         .then((res) => {
             return res.data;
@@ -110,6 +110,23 @@ const userAPI = {
         } catch (error) {
             console.log(error);
             return 0
+        }
+    },
+    deactivateUser: async (userToken) => {
+        try{
+            const user = await userAPI.getByToken(userToken)
+            api
+            .put(`User/${user.id}/deactivate`)
+            .then((res) => {
+                return res.status;
+            })
+            .catch((err) => {
+                console.log("AXIOS ERR"+err);
+                return 0;
+            })
+        }catch(error){
+            console.log(error);
+            return 0;
         }
     }
 }

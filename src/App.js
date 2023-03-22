@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './global.css';
 
@@ -10,25 +10,33 @@ import Register from './pages/registerPage/register.js';
 import Session from './pages/SessionPage/Session.js';
 import Menu from './pages/homePage/home';
 import Recover from './pages/RecoverPage/recover.js';
-import Background from './components/backgroundComponent/background';
-
+import Profile from "./pages/ProfilePage/profile.js";
 //import { socket } from "./config/socket.js";
 
 export default function App() {
   const [userCredencial, setUserCredencial] = useState({});
   const valueAuth = { userCredencial, setUserCredencial };
+
+  useEffect(()=> {
+    const localUser = localStorage.getItem("user");
+    if (localUser) setUserCredencial(JSON.parse(localUser));
+  }, [])
   return (
     <SocketContext.Provider value={socket}>
-      <BrowserRouter>
-        <Routes>
-          <Route index path="/" Component={Login} />
-          <Route path="/register" Component={Register} />
-          <Route path="/recover" Component={Recover} />
-          <Route path="/session" Component={Session} />
-          <Route path="/menu" Component={Menu} />
-          <Route path="/background" Component={Background} />
-        </Routes>
-      </BrowserRouter>
+      <AuthContext.Provider value={valueAuth}>
+        <BrowserRouter>
+          <Routes>
+            {/* {userCredencial != null ? <Route index path="/" Component={Login} /> : <Route index path="/" Component={Menu} />} */}
+            <Route index path="/" Component={Login} /> 
+            <Route path="/menu" Component={Menu} />
+            <Route path="/register" Component={Register} />
+            <Route path="/recover" Component={Recover} />
+            <Route path="/session" Component={Session} />
+            <Route path="/menu" Component={Menu} />
+            <Route path="/userprofile" Component={Profile} />
+          </Routes>
+        </BrowserRouter>
+      </AuthContext.Provider>
     </SocketContext.Provider>
   );
 }

@@ -17,14 +17,11 @@ export default function Register() {
 
   async function handleCreateUser(){
     const response = await auth.register(email, senha, name);
-    if(response == 200){
-      redirect('/');
-    }
+    console.log(response)
   }
 
   async function handleLogInWithGoogle(){
     const response = await auth.singinWithGoogle();
-    if (response != 0) redirect("/");
   }
 
 
@@ -33,7 +30,6 @@ export default function Register() {
       <main className="container">
         <div className="loginBox">
           <h1 className="loginTitle">Cadastro</h1>
-          <form>
             <div className="inputContainer">
               <TextField
                 className="input"
@@ -69,7 +65,6 @@ export default function Register() {
             </div>
           <button className="button-green" onClick={handleCreateUser}>Criar</button>
           <img src={GoogleSignInNormalImage} onClick={handleLogInWithGoogle} width="50px" />
-          </form>
           <p className="textCreateAcount"><Link to="/"> Voltar </Link> </p>
           {/* google auth */}
         </div>

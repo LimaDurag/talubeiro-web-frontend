@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import TextField from '@mui/material/TextField';
-import { Link } from 'react-router-dom';
-import Background from '../../components/backgroundComponent/background';
+import { Link, Navigate, useNavigate} from 'react-router-dom';
 import '../../global.css';
 import './styles.css';
 
@@ -15,9 +14,15 @@ export default function Login() {
 
   const { userCredencial, setUserCredencial } = useContext(AuthContext);
 
+  const navigate = useNavigate();
+
   async function handleLogInWithEmailAndPassword() {
     const response = await auth.singin(email, senha);
     if (response != 0) setUserCredencial(response);
+    if (userCredencial) navigate('/menu');
+
+    localStorage.setItem("user", JSON.stringify(userCredencial))
+    
   }
 
   return (
@@ -66,7 +71,7 @@ export default function Login() {
           <div className="line" />
           <p className="textCreateAcount">Não tem uma conta?</p>
           <button className="button-green">
-            <Link to="/background"> Criar </Link>{' '}
+            <Link to="/register"> Criar </Link>{' '}
           </button>
         </div>
       </main>
