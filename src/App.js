@@ -15,27 +15,51 @@ import Profile from "./pages/ProfilePage/profile.js";
 
 export default function App() {
   const [userCredencial, setUserCredencial] = useState({});
-  const valueAuth = { userCredencial, setUserCredencial };
+  const [isLogged, setIsLogged] = useState(false);
+  const [userToken, setUserToken] = useState("");
+  const valueAuth = { userCredencial: userCredencial, setUserCredencial: setUserCredencial, isLogged: isLogged, user_token: userToken } ;  
 
   useEffect(()=> {
-    const localUser = localStorage.getItem("user");
-    if (localUser) setUserCredencial(JSON.parse(localUser));
+    let localUserReq = localStorage.getItem("user");
+    let localUserJson = JSON.parse(localUserReq);
+    console.log(localUserJson)
+    if (localUserReq && localUserReq !== undefined) {
+      setUserToken(localUserJson.uid);
+      setIsLogged(true);
+      setUserCredencial(localUserJson);
+    }
+    console.log(isLogged)
+
   }, [])
   return (
     <SocketContext.Provider value={socket}>
       <AuthContext.Provider value={valueAuth}>
-        <BrowserRouter>
-          <Routes>
-            {/* {userCredencial != null ? <Route index path="/" Component={Login} /> : <Route index path="/" Component={Menu} />} */}
-            <Route index path="/" Component={Login} /> 
-            <Route path="/menu" Component={Menu} />
-            <Route path="/register" Component={Register} />
-            <Route path="/recover" Component={Recover} />
-            <Route path="/session" Component={Session} />
-            <Route path="/menu" Component={Menu} />
-            <Route path="/userprofile" Component={Profile} />
-          </Routes>
-        </BrowserRouter>
+      {isLogged ? 
+       <BrowserRouter>
+        <Routes>
+          {/* <Route index path="/" Component={Login} />  */}
+          <Route index path="/" Component={Menu} />
+          {/* <Route path="/register" Component={Register} /> */}
+          {/* <Route path="/recover" Component={Recover} /> */}
+          <Route path="/session/:roomId" Component={Session} />
+          {/* <Route path="/menu" Component={Menu} /> */}
+          <Route path="/userprofile" Component={Profile} />
+        </Routes>
+      </BrowserRouter>
+    : 
+    // AUTH ROUTES
+    <BrowserRouter>
+      <Routes>
+        <Route index path="/" Component={Login} /> 
+        {/* <Route path="/menu" Component={Menu} /> */}
+        <Route path="/register" Component={Register} />
+        <Route path="/recover" Component={Recover} />
+        {/* <Route path="/session" Component={Session} /> */}
+        {/* <Route path="/menu" Component={Menu} /> */}
+        <Route path="/userprofile" Component={Profile} />
+      </Routes>
+    </BrowserRouter>  
+    }
       </AuthContext.Provider>
     </SocketContext.Provider>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import TextField from '@mui/material/TextField';
-import { Link, Navigate, useNavigate} from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import '../../global.css';
 import './styles.css';
 
@@ -14,14 +14,15 @@ export default function Login() {
 
   const { userCredencial, setUserCredencial } = useContext(AuthContext);
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   async function handleLogInWithEmailAndPassword() {
     const response = await auth.singin(email, senha);
-    if (response != 0) setUserCredencial(response);
-    if (userCredencial) navigate('/menu');
-
-    localStorage.setItem("user", JSON.stringify(userCredencial))
+    if (response !== 0){
+      setUserCredencial(response);
+      localStorage.setItem("user", JSON.stringify(userCredencial))
+      window.location.reload()
+    } 
     
   }
 
