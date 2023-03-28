@@ -1,0 +1,59 @@
+.menu-box {
+  display: flex;
+  flex: 1;
+  box-shadow: 20px 15px 0px 0px #000;
+  flex-direction: column;
+  background-color: #f2f2f2;
+  border-radius: 103px;
+  max-width: 30vw;
+  max-height: 60vh;
+  font-size: 1em;
+}
+
+.menu-box .menu-title {
+  font-weight: 900;
+  font-size: 3em;
+  text-align: center;
+}
+
+.menu-box .div-buttons {
+  flex-direction: row;
+  align-self: center;
+  margin-top: 50px;
+}
+
+.menu-box .button {
+  width: 150px;
+  height: 50px;
+  margin: 5px 10px 5px 10px;
+  padding: 25px;
+
+  border-radius: 10px;
+  border-width: 1px;
+  background-color: #126ec8;
+  color: white;
+  font-weight: 900;
+
+  box-shadow: 5px 5px 0px 0px #0542bf;
+}
+
+.disconnect-button {
+  width: 250px;
+  max-height: 50px;
+  align-self: center;
+}
+.disconnect-button .disconnect-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.loginBox .line {
+  height: 1px;
+  background: black;
+}
+.loginBox .textCreateAcount {
+  align-self: center;
+  font-weight: 900;
+  margin: 20px 0px 20px 0px;
+}

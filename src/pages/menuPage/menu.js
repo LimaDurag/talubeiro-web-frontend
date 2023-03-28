@@ -1,23 +1,27 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Button from '@mui/material/Button';
 import '../../global.css';
 import './styles.css';
+
+// Import Components
+import Header from '../../components/headerComponent/header';
 
 export default function Menu() {
   return (
     <main className="container">
+      <Header />
       <div className="menu-box">
-        <h1 className="menu-title">Talubeiro</h1>
         <div className="div-buttons">
           <button className="button">CRIAR NOVA SALA</button>
           <button className="button">JUNTAR-SE Á SALA</button>
-          <button className="button">
-            <Link to="/userprofile"> GERENCIAR PERFI </Link>
-          </button>
         </div>
-        <button className="disconnect-button">
-          <Link to="/background"> Sair da minha conta </Link>
-        </button>
+        <Button variant="text" className="disconnect-button">
+          <Link to="/background" className="disconnect-text">
+            {' '}
+            Sair da minha conta{' '}
+          </Link>
+        </Button>
       </div>
     </main>
   );

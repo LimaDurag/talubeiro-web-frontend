@@ -4,10 +4,6 @@
   box-sizing: border-box;
   text-decoration: none;
   flex: 1;
-}
-
-html,
-body {
   font-family: 'Inter', sans-serif;
 }
 
@@ -19,5 +15,9 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #0542bf;
+  background-image: url(././assets/background.png);
+  background-color: #cccccc;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
