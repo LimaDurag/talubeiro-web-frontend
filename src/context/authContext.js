@@ -2,5 +2,7 @@ import { createContext } from 'react'
 
 export const AuthContext = createContext({
     userCredencial: {},
-    setUserCredencial: () => {}
+    setUserCredencial: () => {},
+    user_token: "",
+    isLogged: false
 });

@@ -15,11 +15,25 @@ import Profile from './pages/ProfilePage/profile.js';
 
 export default function App() {
   const [userCredencial, setUserCredencial] = useState({});
-  const valueAuth = { userCredencial, setUserCredencial };
+  const [isLogged, setIsLogged] = useState(false);
+  const [userToken, setUserToken] = useState('');
+  const valueAuth = {
+    userCredencial: userCredencial,
+    setUserCredencial: setUserCredencial,
+    isLogged: isLogged,
+    user_token: userToken,
+  };
 
   useEffect(() => {
-    const localUser = localStorage.getItem('user');
-    if (localUser) setUserCredencial(JSON.parse(localUser));
+    let localUserReq = localStorage.getItem('user');
+    let localUserJson = JSON.parse(localUserReq);
+    console.log(localUserJson);
+    if (localUserReq && localUserReq !== undefined) {
+      setUserToken(localUserJson.uid);
+      setIsLogged(true);
+      setUserCredencial(localUserJson);
+    }
+    console.log(isLogged);
   }, []);
   return (
     <SocketContext.Provider value={socket}>

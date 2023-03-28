@@ -38,7 +38,7 @@ const authFirebase = {
         })
     },
     singin: async (email, password) => {
-        return signInWithEmailAndPassword(auth, email, password)
+        return await signInWithEmailAndPassword(auth, email, password)
         .then((userCredencial) => {
             const user = userCredencial.user;
             console.log("USER LOGGED:");
