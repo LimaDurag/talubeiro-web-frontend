@@ -3,6 +3,7 @@ import { storage } from "../config/firebase.js";
 
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
+import { auth } from "./auth.js";
 
 
 const userAPI = {
@@ -21,7 +22,7 @@ const userAPI = {
             return 0;
         })
     },
-    getByToken: (token) => {
+    getByToken: async (token) => {
         return api
         .get('User/'+token)
         .then((res) => {
@@ -32,23 +33,25 @@ const userAPI = {
             return 0;
         })
     },
-    update: (name, email, token, avatar_link) => {
-        api
-        .put('/User', {
+    update: async (id, name, email, token, avatar_link) => {
+        console.log("UPDATE VARIABLES: ID:"+id+" NAME: "+name+" EMAIL: "+email+" TOKEN: "+token+" AVATAR: "+avatar_link)
+        return await api
+        .put('/User/'+id, {
             name: name,
             email: email,
             token: token,
-            avatar_link: avatar_link
+            avatar_link: avatar_link || ''
         })
         .then((res) => {
-            return res.status;
+            console.log(res.data)
+            return res.data;
         })
         .catch((err) => {
             console.log("AXIOS ERR"+err);
             return 0;
         })
     },
-    setAvatar: (userToken, file) => {
+    setAvatar: async (userToken, file) => {
         const userAvatarRef = ref(storage, "user-avatar/"+userToken);
         const metadata = {
             contentType: 'image/jpeg'
@@ -56,10 +59,10 @@ const userAPI = {
           const uploadTask = uploadBytesResumable(userAvatarRef, file, metadata);
 
           // Listen for state changes, errors, and completion of the upload.
-          uploadTask.on('state_changed',
+          return uploadTask.on('state_changed',
             (snapshot) => {
               // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-              const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
               console.log('Upload is ' + progress + '% done');
               switch (snapshot.state) {
                 case 'paused':
@@ -87,12 +90,14 @@ const userAPI = {
             }, 
             async () => {
               // Upload completed successfully, now we can get the download URL
-              getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+              return getDownloadURL(uploadTask.snapshot.ref)
+              .then(async (downloadURL) => {
                try {
-                    console.log('File available at', downloadURL);
-                    const user = await userAPI.getByToken(userToken)
-                    user.avatar_link = downloadURL; 
-                    userAPI.update(user.name, user.email, user.token, user.avatar_link)
+                   const user = await userAPI.getByToken(userToken)
+                   user.avatar_link = downloadURL; 
+                   const updatedUser = await userAPI.update(user.id, user.name, user.email, user.token, user.avatar_link);
+                   localStorage.setItem("info", JSON.stringify(updatedUser));
+                   console.log(updatedUser);
                } catch (error) {
                     console.log(error);
                     return 0 
@@ -105,7 +110,7 @@ const userAPI = {
         try {
             const user = await userAPI.getByToken(userToken)
             user.name = nickname; 
-            userAPI.update(user.name, user.email, user.token, user.avatar_link);
+            userAPI.update(user.id, user.name, user.email, user.token, user.avatar_link);
             return 200;
         } catch (error) {
             console.log(error);

@@ -21,9 +21,8 @@ export default function App() {
 
   useEffect(()=> {
     let localUserReq = localStorage.getItem("user");
-    let localUserJson = JSON.parse(localUserReq);
-    console.log(localUserJson)
     if (localUserReq && localUserReq !== undefined) {
+      let localUserJson = JSON.parse(localUserReq);
       setUserToken(localUserJson.uid);
       setIsLogged(true);
       setUserCredencial(localUserJson);
@@ -37,12 +36,8 @@ export default function App() {
       {isLogged ? 
        <BrowserRouter>
         <Routes>
-          {/* <Route index path="/" Component={Login} />  */}
           <Route index path="/" Component={Menu} />
-          {/* <Route path="/register" Component={Register} /> */}
-          {/* <Route path="/recover" Component={Recover} /> */}
           <Route path="/session/:roomId" Component={Session} />
-          {/* <Route path="/menu" Component={Menu} /> */}
           <Route path="/userprofile" Component={Profile} />
         </Routes>
       </BrowserRouter>
@@ -51,11 +46,8 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route index path="/" Component={Login} /> 
-        {/* <Route path="/menu" Component={Menu} /> */}
         <Route path="/register" Component={Register} />
         <Route path="/recover" Component={Recover} />
-        {/* <Route path="/session" Component={Session} /> */}
-        {/* <Route path="/menu" Component={Menu} /> */}
         <Route path="/userprofile" Component={Profile} />
       </Routes>
     </BrowserRouter>  

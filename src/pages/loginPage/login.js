@@ -5,6 +5,7 @@ import '../../global.css';
 import './styles.css';
 
 import auth from '../../services/auth.js';
+import userAPI from '../../services/userAPI.js';
 
 import { AuthContext } from '../../context/authContext.js';
 
@@ -17,12 +18,26 @@ export default function Login() {
   //const navigate = useNavigate();
 
   async function handleLogInWithEmailAndPassword() {
-    const response = await auth.singin(email, senha);
-    if (response !== 0){
-      setUserCredencial(response);
-      localStorage.setItem("user", JSON.stringify(userCredencial))
-      window.location.reload()
-    } 
+    // const response = await auth.singin(email, senha);
+    // if (response !== 0){
+    //   setUserCredencial(response);
+    //   console.log(response);
+    //   localStorage.setItem("user", JSON.stringify(userCredencial))
+    //   //window.location.reload()
+    // } 
+
+    auth.singin(email, senha).then(response => {
+       if (response !== 0){
+        setUserCredencial(response);
+        localStorage.setItem("user", JSON.stringify(response));
+        userAPI.getByToken(response.uid).then(response => {
+          localStorage.setItem("info", JSON.stringify(response));
+        })
+        window.location.reload()
+      } 
+    }).catch(error => {
+      console.log("ERROR LOGIN: "+error);
+    })
     
   }
 
@@ -62,7 +77,7 @@ export default function Login() {
 
           <button
             className="button-red"
-            onClick={handleLogInWithEmailAndPassword}
+            onClick={ handleLogInWithEmailAndPassword}
           >
             Login
           </button>

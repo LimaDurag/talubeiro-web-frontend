@@ -3,7 +3,15 @@ import { Link } from 'react-router-dom';
 import '../../global.css';
 import './styles.css';
 
+import auth from "../../services/auth.js";
+
 export default function Menu() {
+
+  const handleSignOff = () => {
+    auth.singOutUser();
+    window.location.reload();
+  }
+
   return (
     <main className="container">
       <div className="menu-box">
@@ -15,8 +23,8 @@ export default function Menu() {
             <Link to="/userprofile"> GERENCIAR PERFI </Link>
           </button>
         </div>
-        <button className="disconnect-button">
-          <Link to="/background"> Sair da minha conta </Link>
+        <button className="disconnect-button" onClick={handleSignOff}>
+          <Link to="/"> Sair da minha conta </Link>
         </button>
       </div>
     </main>

@@ -7,9 +7,10 @@ import { getAuth,
     sendPasswordResetEmail, 
     signInWithEmailAndPassword, 
     GoogleAuthProvider,
-    signInWithPopup } from "firebase/auth";
+    signInWithPopup,
+    signOut } from "firebase/auth";
 
-const auth = getAuth(app);
+export const auth = getAuth(app);
 auth.useDeviceLanguage();
 const googleProvider = new GoogleAuthProvider();
 
@@ -63,7 +64,7 @@ const authFirebase = {
             console.log("USER CREATED W/ GOOGLE:");
             console.log(user);
 
-            return credential;
+            return user;
             
         }).catch((error) => {
             const errorCode = error.code;
@@ -86,7 +87,13 @@ const authFirebase = {
             const errorMessage = error.message;
             console.log("ERRO AO FAZER LOGIN: ERROR CODE:"+errorCode+" ERROR MESSAGE: "+errorMessage);
           });
-        
+    },
+    singOutUser: () => {
+        signOut(auth).then(() => {
+            localStorage.setItem("user", "");
+          }).catch((error) => {
+            console.log("ERRO AO DESLOGAR: "+error);
+          });
     }
     
 }
