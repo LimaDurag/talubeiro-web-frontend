@@ -8,28 +8,34 @@ import { AuthContext } from './context/authContext.js';
 import Login from './pages/loginPage/login.js';
 import Register from './pages/registerPage/register.js';
 import Session from './pages/SessionPage/Session.js';
-import Menu from './pages/homePage/home';
+import Menu from './pages/menuPage/menu';
 import Recover from './pages/RecoverPage/recover.js';
-import Profile from "./pages/ProfilePage/profile.js";
+import Profile from './pages/ProfilePage/profile.js';
 //import { socket } from "./config/socket.js";
 
 export default function App() {
   const [userCredencial, setUserCredencial] = useState({});
   const [isLogged, setIsLogged] = useState(false);
-  const [userToken, setUserToken] = useState("");
-  const valueAuth = { userCredencial: userCredencial, setUserCredencial: setUserCredencial, isLogged: isLogged, user_token: userToken } ;  
+  const [userToken, setUserToken] = useState('');
+  const valueAuth = {
+    userCredencial: userCredencial,
+    setUserCredencial: setUserCredencial,
+    isLogged: isLogged,
+    user_token: userToken,
+  };
 
-  useEffect(()=> {
-    let localUserReq = localStorage.getItem("user");
+  useEffect(() => {
+    let localUserReq = localStorage.getItem('user');
+    let localUserJson = JSON.parse(localUserReq);
+    console.log(localUserJson);
     if (localUserReq && localUserReq !== undefined) {
       let localUserJson = JSON.parse(localUserReq);
       setUserToken(localUserJson.uid);
       setIsLogged(true);
       setUserCredencial(localUserJson);
     }
-    console.log(isLogged)
-
-  }, [])
+    console.log(isLogged);
+  }, []);
   return (
     <SocketContext.Provider value={socket}>
       <AuthContext.Provider value={valueAuth}>
