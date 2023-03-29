@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Avatar from "@mui/material/Avatar";
 import '../../global.css';
@@ -13,6 +13,7 @@ export default function Profile () {
   //const [file, setFile] = useState(new File());
   const [user, setUser] = useState({})
   const [nickname, setNickname] = useState("")
+  const navigate = useNavigate();
 
 
     useEffect(()=>{
@@ -32,7 +33,8 @@ export default function Profile () {
 
     const handleSignOff = () => {
       auth.singOutUser();
-      window.location.reload();
+      navigate("/");
+
     }
 
 

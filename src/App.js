@@ -26,8 +26,6 @@ export default function App() {
 
   useEffect(() => {
     let localUserReq = localStorage.getItem('user');
-    let localUserJson = JSON.parse(localUserReq);
-    console.log(localUserJson);
     if (localUserReq && localUserReq !== undefined) {
       let localUserJson = JSON.parse(localUserReq);
       setUserToken(localUserJson.uid);
