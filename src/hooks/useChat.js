@@ -11,23 +11,23 @@ const useChat = (roomId) => {
   const [messages, setMessages] = useState([]);
 //   const socketRef = useRef();
  
-  useEffect(() => {
-    //socket.emit('join', roomId);
- 
-    socket.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
-    
-      const incomingMessage = {
-        ...message,
-        ownedByCurrentUser: message.senderId === socket.id,
-      };
-      setMessages((messages) => [...messages, incomingMessage]);
-      console.log(messages);
-    });
- 
-    // return () => {
-    //   socket.disconnect();
-    // };
-  }, []);
+useEffect(() => {
+  // Set up listener
+  const handleNewMessage = (message) => {
+    const incomingMessage = {
+      ...message,
+      ownedByCurrentUser: message.senderId === socket.id,
+    };
+    setMessages((messages) => [...messages, incomingMessage]);
+  };
+  socket.on(NEW_CHAT_MESSAGE_EVENT, handleNewMessage);
+
+  // Cleanup function
+  return () => {
+    socket.off(NEW_CHAT_MESSAGE_EVENT, handleNewMessage);
+  };
+}, []);
+
  
   const sendMessage = (messageBody) => {
     socket.emit(NEW_CHAT_MESSAGE_EVENT, {
