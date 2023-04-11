@@ -51,6 +51,8 @@ export default function ChatComponent(props) {
     const handleSendMessage = () => {
       sendMessage(newMessage);
       setNewMessage("");
+      console.log("AAA")
+      console.log(messages)
     };
 
 

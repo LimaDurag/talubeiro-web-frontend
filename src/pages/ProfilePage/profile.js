@@ -34,7 +34,7 @@ export default function Profile () {
     const handleSignOff = () => {
       auth.singOutUser();
       navigate("/");
-
+      setTimeout(window.location.reload(), 2000)
     }
 
 
@@ -72,7 +72,7 @@ export default function Profile () {
 
     const handleDeactivate = async () => {
       await userAPI.deactivateUser(user.token);
-      window.location.reload();
+      handleSignOff()
     }
   
   return (
@@ -83,10 +83,10 @@ export default function Profile () {
         {user.avatar_link ? <Avatar
             alt="Profile photo"
             src={user.avatar_link}
-            sx={{ width: 56, height: 56 }}
+            sx={{ width: 100, height: 100 }}
             /> : <Avatar
             alt="Profile photo"
-            sx={{ width: 56, height: 56 }}
+            sx={{ width: 100, height: 100 }}
         >U</Avatar>}
 
           <br></br>

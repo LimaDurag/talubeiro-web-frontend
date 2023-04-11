@@ -4,6 +4,8 @@ import { Link, useNavigate} from 'react-router-dom';
 import '../../global.css';
 import './styles.css';
 
+import GoogleSignInNormalImage from '../../assets/googleNormal.svg';
+
 import auth from '../../services/auth.js';
 import userAPI from '../../services/userAPI.js';
 
@@ -27,6 +29,22 @@ export default function Login() {
     // } 
 
     auth.singin(email, senha).then(response => {
+       if (response !== 0){
+        setUserCredencial(response);
+        localStorage.setItem("user", JSON.stringify(response));
+        userAPI.getByToken(response.uid).then(response => {
+          localStorage.setItem("info", JSON.stringify(response));
+        })
+        window.location.reload()
+      } 
+    }).catch(error => {
+      console.log("ERROR LOGIN: "+error);
+    })
+    
+  }
+  async function handleLogInWithGoogle() {
+
+    auth.singinWithGoogle().then(response => {
        if (response !== 0){
         setUserCredencial(response);
         localStorage.setItem("user", JSON.stringify(response));
@@ -84,6 +102,7 @@ export default function Login() {
           <span className="button-forget">
             <Link to="/recover">Esqueceu a Senha?</Link>
           </span>
+          <img src={GoogleSignInNormalImage} onClick={handleLogInWithGoogle} width="50px" />
           <div className="line" />
           <p className="textCreateAcount">Não tem uma conta?</p>
           <button className="button-green">

@@ -30,6 +30,11 @@ export default function Register() {
 
   async function handleLogInWithGoogle(){
     const response = await auth.singinWithGoogle();
+    if (response !== 0){
+      setUserCredencial(response);
+      localStorage.setItem("user", JSON.stringify(userCredencial))
+      navigate("/");
+    }
   }
 
 

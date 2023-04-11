@@ -12,9 +12,10 @@ const useChat = (roomId) => {
 //   const socketRef = useRef();
  
   useEffect(() => {
-    socket.emit('join', roomId);
+    //socket.emit('join', roomId);
  
     socket.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
+    
       const incomingMessage = {
         ...message,
         ownedByCurrentUser: message.senderId === socket.id,
@@ -26,7 +27,7 @@ const useChat = (roomId) => {
     // return () => {
     //   socket.disconnect();
     // };
-  }, [roomId]);
+  }, []);
  
   const sendMessage = (messageBody) => {
     socket.emit(NEW_CHAT_MESSAGE_EVENT, {

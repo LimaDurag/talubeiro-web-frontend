@@ -54,23 +54,29 @@ const authFirebase = {
             return 0;
         })
     },
-    singinWithGoogle: () => {
+    singinWithGoogle: async () => {
         return signInWithPopup(auth, googleProvider)
-        .then((result) => {
+        .then(async (result) => {
             const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
+            // const token = credential.accessToken;
             const user = result.user;
 
             console.log("USER CREATED W/ GOOGLE:");
             console.log(user);
 
+            if(userAPI.getByToken(user.uid) === 0){
+                userAPI.create(user.displayName, user.email, user.uid);
+                const userDb = await userAPI.getByToken(user.uid);
+                userAPI.update(userDb.id, userDb.name, userDb.email, userDb.token, user.photoURL)
+            }
+            
             return user;
             
         }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            const email = error.customData.email;
-            const credential = GoogleAuthProvider.credentialFromError(error);
+            // const email = error.customData.email;
+            // const credential = GoogleAuthProvider.credentialFromError(error);
 
             console.log("ERRO AO FAZER LOGIN: ERROR CODE:"+errorCode+" ERROR MESSAGE: "+errorMessage);
 

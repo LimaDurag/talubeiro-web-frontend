@@ -94,6 +94,7 @@ const userAPI = {
               .then(async (downloadURL) => {
                try {
                    const user = await userAPI.getByToken(userToken)
+                   console.log("USER TOKEN> "+user.token)
                    user.avatar_link = downloadURL; 
                    const updatedUser = await userAPI.update(user.id, user.name, user.email, user.token, user.avatar_link);
                    localStorage.setItem("info", JSON.stringify(updatedUser));
