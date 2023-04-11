@@ -49,10 +49,12 @@ export default function ChatComponent(props) {
     const [newMessage, setNewMessage] = React.useState("");
 
     const handleSendMessage = () => {
-      sendMessage(newMessage);
-      setNewMessage("");
-      console.log("AAA")
-      console.log(messages)
+      if(newMessage != ""){
+        sendMessage(newMessage);
+        setNewMessage("");
+      }else{
+        console.log("nao pode mandar msg vazia")
+      }
     };
 
 
