@@ -11,6 +11,8 @@ import Session from './pages/SessionPage/Session.js';
 import Menu from './pages/menuPage/menu';
 import Recover from './pages/RecoverPage/recover.js';
 import Profile from './pages/ProfilePage/profile.js';
+import FreeMode from './pages/FreeModePage/FreeMode.js';
+
 //import { socket } from "./config/socket.js";
 
 export default function App() {
@@ -43,6 +45,7 @@ export default function App() {
           <Route index path="/" Component={Menu} />
           <Route path="/session/:roomId" Component={Session} />
           <Route path="/userprofile" Component={Profile} />
+          <Route path="/freemode" Component={FreeMode} />          
         </Routes>
       </BrowserRouter>
     : 
