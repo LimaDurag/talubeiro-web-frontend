@@ -1,10 +1,13 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+
+import userAPI from "../../services/userAPI.js";
+import auth from "../../services/auth.js";
 
 // import { SocketContext } from "../../context/socketContext.js";
 
@@ -47,11 +50,30 @@ export default function ChatComponent(props) {
     const { roomId } = props;
     const { messages, sendMessage } = useChat(roomId);
     const [newMessage, setNewMessage] = React.useState("");
+    const [user, setUser] = useState({})
+
+    useEffect(()=>{
+      var userInfo = JSON.parse(localStorage.getItem('info'));
+      if(userInfo && userInfo.uid){
+        console.log('DISGRACA')
+        setUser(userInfo);
+      }else{
+        const userAuth = JSON.parse(localStorage.getItem('user'));
+        userAPI.getByToken(userAuth.uid).then(response => {
+          localStorage.setItem('info', JSON.stringify(response));
+        })
+        userInfo = JSON.parse(localStorage.getItem('info'));
+        setUser(userInfo);
+      }
+        
+  }, [])
 
     const handleSendMessage = () => {
       if(newMessage != ""){
-        sendMessage(newMessage);
+        console.log(user.name)
+        sendMessage(newMessage, user.name);
         setNewMessage("");
+        console.log(messages)
       }else{
         console.log("nao pode mandar msg vazia")
       }
@@ -76,17 +98,17 @@ export default function ChatComponent(props) {
                         {messages.map((value, index) => { 
                           return (
                             <Grid item key={index}>
-                                {value.senderId.slice(0,5)}:{value.body}
+                                {value.senderId}:{value.body}
                             </Grid>
                          ) })}
                 </Grid>
             </Item>
         </Grid>
         <Grid item xs={10}>
-          <TextField sx={{width: "100%", height: "80%"}} value={newMessage} onChange={(e)=> {setNewMessage(e.target.value)}} />
+          <TextField placeholder="Digite sua mensagem..." sx={{width: "100%", height: "80%"}} value={newMessage} onChange={(e)=> {setNewMessage(e.target.value)}} />
         </Grid>
         <Grid item xs={2}>
-          <Button sx={{width: "100%", height: "100%"}} onClick={handleSendMessage}>Enviar</Button>
+          <Button variant="contained" sx={{width: "100%", height: "100%", color: "black", borderWidth: '4px'}} onClick={handleSendMessage}>Enviar</Button>
         </Grid>
       </Grid>
     </Box>

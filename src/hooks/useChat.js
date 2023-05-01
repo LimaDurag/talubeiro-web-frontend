@@ -29,10 +29,10 @@ useEffect(() => {
 }, []);
 
  
-  const sendMessage = (messageBody) => {
+  const sendMessage = (messageBody, senderId) => {
     socket.emit(NEW_CHAT_MESSAGE_EVENT, {
       body: messageBody,
-      senderId: socket.id,
+      senderId: senderId,
     });
   };
  
