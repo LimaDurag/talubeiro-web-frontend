@@ -1,0 +1,14 @@
+.button-red {
+  width: 205px;
+  height: 55px;
+  border-radius: 10px;
+  border-width: 1px;
+  background-color: #bf0513;
+  color: white;
+  font-weight: 900;
+  font-family: 'Inter';
+  font-size: 28px;
+  align-self: center;
+
+  box-shadow: 5px 5px 0px 0px #ac0411;
+}

@@ -39,26 +39,26 @@ export default function App() {
   return (
     <SocketContext.Provider value={socket}>
       <AuthContext.Provider value={valueAuth}>
-      {isLogged ? 
-       <BrowserRouter>
-        <Routes>
-          <Route index path="/" Component={Menu} />
-          <Route path="/session/:roomId" Component={Session} />
-          <Route path="/userprofile" Component={Profile} />
-          <Route path="/freemode" Component={FreeMode} />          
-        </Routes>
-      </BrowserRouter>
-    : 
-    // AUTH ROUTES
-    <BrowserRouter>
-      <Routes>
-        <Route index path="/" Component={Login} /> 
-        <Route path="/register" Component={Register} />
-        <Route path="/recover" Component={Recover} />
-        <Route path="/userprofile" Component={Profile} />
-      </Routes>
-    </BrowserRouter>  
-    }
+        {isLogged ? (
+          <BrowserRouter>
+            <Routes>
+              <Route index path="/" Component={Menu} />
+              <Route path="/session/:roomId" Component={Session} />
+              <Route path="/userprofile" Component={Profile} />
+              <Route path="/freemode" Component={FreeMode} />
+            </Routes>
+          </BrowserRouter>
+        ) : (
+          // AUTH ROUTES
+          <BrowserRouter>
+            <Routes>
+              <Route index path="/" Component={Login} />
+              <Route path="/register" Component={Register} />
+              <Route path="/recover" Component={Recover} />
+              <Route path="/userprofile" Component={Profile} />
+            </Routes>
+          </BrowserRouter>
+        )}
       </AuthContext.Provider>
     </SocketContext.Provider>
   );
