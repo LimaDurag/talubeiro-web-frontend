@@ -11,4 +11,13 @@ function generateRandomNumbers(N, X) {
     return numbers;
   }
 
-  export {generateRandomNumbers}
+  function generateRandomDiceNumbers(x, y) {
+    const randomNumbers = [];
+    for (let i = 0; i < x; i++) {
+      const randomNumber = Math.floor(Math.random() * y) + 1;
+      randomNumbers.push(randomNumber);
+    }
+    return randomNumbers;
+  }
+
+  export {generateRandomNumbers, generateRandomDiceNumbers}
