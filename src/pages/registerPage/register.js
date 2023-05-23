@@ -1,5 +1,6 @@
-import React, {useState, useContext} from 'react';
-import TextField from '@mui/material/TextField';
+import React, { useState, useContext } from 'react';
+import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
 
 import '../../global.css';
 import './styles.css';
@@ -7,79 +8,88 @@ import './styles.css';
 import GoogleSignInNormalImage from '../../assets/googleNormal.svg';
 
 import { Link, useNavigate } from 'react-router-dom';
-import auth from '../../services/auth.js'
-import {AuthContext} from '../../context/authContext.js'
+import auth from '../../services/auth.js';
+
+import { AuthContext } from '../../context/authContext.js';
+
+// Import Components
+import InputForm from '../../components/InputForm';
+import ButtonGreen from '../../components/buttonGreen/buttonGreen';
+import BackButton from '../../components/backButton/backButton';
+
+// Import Images
+import logo from '../../assets/Images/logo.png';
 
 export default function Register() {
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [name, setName] = useState('');
 
   const { userCredencial, setUserCredencial } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
-  async function handleCreateUser(){
+  async function handleCreateUser() {
     const response = await auth.register(email, senha, name);
-    if (response !== 0){
+    if (response !== 0) {
       setUserCredencial(response);
-      localStorage.setItem("user", JSON.stringify(userCredencial))
-      navigate("/");
+      localStorage.setItem('user', JSON.stringify(userCredencial));
+      navigate('/');
     }
   }
 
-  async function handleLogInWithGoogle(){
-    const response = await auth.singinWithGoogle();
-    if (response !== 0){
-      setUserCredencial(response);
-      localStorage.setItem("user", JSON.stringify(userCredencial))
-      navigate("/");
-    }
-  }
-
+  // async function handleLogInWithGoogle() {
+  //   const response = await auth.singinWithGoogle();
+  //   if (response !== 0) {
+  //     setUserCredencial(response);
+  //     localStorage.setItem('user', JSON.stringify(userCredencial));
+  //     navigate('/');
+  //   }
+  // }
 
   return (
     <>
       <main className="container">
-        <div className="loginBox">
-          <h1 className="loginTitle">Cadastro</h1>
-            <div className="inputContainer">
-              <TextField
-                className="input"
-                required
-                id="filled-required"
-                label="NOME DE USUÁRIO"
-                variant="filled"
-                onChange={(e)=> {setName(e.target.value)}}
+        <img src={logo} alt="logo" className="logo logo-register" />
+        <div className="content-box box-register">
+          <Container>
+            <BackButton />
+            <h1 className="register-title">CADASTRO</h1>
+            <Stack direction="column" className="">
+              <div className="input-container">
+                <InputForm
+                  label={'NOME DE USUÁRIO'}
+                  defaultValue={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="input-container">
+                <InputForm
+                  label={'EMAIL'}
+                  defaultValue={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="input-container">
+                <InputForm
+                  label={'SENHA'}
+                  type={'password'}
+                  defaultValue={senha}
+                  onChange={(e) => {
+                    setSenha(e.target.value);
+                  }}
+                />
+              </div>
+              <ButtonGreen
+                buttonText={'CADASTRAR'}
+                onClick={handleCreateUser}
               />
-            </div>
-            <div className="inputContainer">
-              <TextField
-                className="input"
-                id="filled-password-input"
-                label="SENHA"
-                type="password"
-                autoComplete="current-password"
-                variant="filled"
-                required
-                onChange={(e) => {setSenha(e.target.value)}}
-              />
-            </div>
-            <div className="inputContainer">
-              <TextField
-                className="input"
-                id="filled-input"
-                label="EMAIL"
-                type="email"
-                variant="filled"
-                required
-                onChange={(e)=> {setEmail(e.target.value)}}
-              />
-            </div>
-          <button className="button-green" onClick={handleCreateUser}>Criar</button>
-          <img src={GoogleSignInNormalImage} onClick={handleLogInWithGoogle} width="50px" />
-          <p className="textCreateAcount"><Link to="/"> Voltar </Link> </p>
-          {/* google auth */}
+            </Stack>
+          </Container>
         </div>
       </main>
     </>
