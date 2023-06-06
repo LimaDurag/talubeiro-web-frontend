@@ -12,6 +12,8 @@ export default function InputForm({
   onChange,
   defaultValue,
   type,
+  margin,
+  disabled,
 }) {
   const CssTextField = styled(TextField)({
     '& label.Mui-focused': {
@@ -26,6 +28,8 @@ export default function InputForm({
       fontStyle: 'normal',
       fontWeight: '900',
       paddingTop: 20,
+      zIndex: 1,
+      marginLeft: 12,
     },
     '& .MuiInputLabel-root': {
       color: '#000',
@@ -56,6 +60,8 @@ export default function InputForm({
       defaultValue={defaultValue}
       onChange={onChange}
       autoFocus
+      margin={margin}
+      disabled={disabled}
     />
   );
 }

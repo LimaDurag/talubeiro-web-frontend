@@ -8,6 +8,7 @@ import { AuthContext } from './context/authContext.js';
 import Login from './pages/loginPage/login.js';
 import Register from './pages/registerPage/register.js';
 import Session from './pages/SessionPage/Session.js';
+import CreateRoom from './pages/createRoomPage/createRoom';
 import Menu from './pages/menuPage/menu';
 import Recover from './pages/RecoverPage/recover.js';
 import Profile from './pages/ProfilePage/profile.js';
@@ -43,6 +44,8 @@ export default function App() {
           <BrowserRouter>
             <Routes>
               <Route index path="/" Component={Menu} />
+              <Route path="/create-room" Component={CreateRoom} />
+
               <Route path="/session/:roomId" Component={Session} />
               <Route path="/userprofile" Component={Profile} />
               <Route path="/freemode" Component={FreeMode} />

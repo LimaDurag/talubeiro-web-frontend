@@ -125,7 +125,7 @@ export default function Login() {
               <p className="desc-icons">Converse enquanto joga!</p>
             </Stack>
             <div className="line" />
-            <ButtonGreen buttonText={'CRIAR CONTA'} />
+            <ButtonGreen linkButton={'/register'} buttonText={'CRIAR'} />
             <img
               src={GoogleSignInNormalImage}
               onClick={handleLogInWithGoogle}
@@ -136,30 +136,6 @@ export default function Login() {
           </Container>
         </div>
         <img src={logoBottom} alt="logoBottom" className="logo-bottom" />
-
-        {/* 
-          
-
-          <button
-            className="button-red"
-            onClick={handleLogInWithEmailAndPassword}
-          >
-            Login
-          </button>
-          <span className="button-forget">
-            <Link to="/recover">Esqueceu a Senha?</Link>
-          </span>
-          <img
-            src={GoogleSignInNormalImage}
-            onClick={handleLogInWithGoogle}
-            width="50px"
-          />
-          <div className="line" />
-          <p className="textCreateAcount">Não tem uma conta?</p>
-          <button className="button-green">
-            <Link to="/register"> Criar </Link>{' '}
-          </button>
-        </div> */}
       </main>
     </>
   );

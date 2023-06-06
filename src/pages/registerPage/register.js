@@ -53,7 +53,7 @@ export default function Register() {
         <img src={logo} alt="logo" className="logo logo-register" />
         <div className="content-box box-register">
           <Container>
-            <BackButton />
+            <BackButton previousPage={'/'} />
             <h1 className="register-title">CADASTRO</h1>
             <Stack direction="column" className="">
               <div className="input-container">

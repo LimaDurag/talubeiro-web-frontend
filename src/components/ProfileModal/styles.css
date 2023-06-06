@@ -1,0 +1,52 @@
+.div-modal-delete-account {
+  border: 2px solid #000000;
+}
+.title-modal-delete {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 36px;
+  line-height: 44px;
+  margin: 40px;
+}
+
+.desc-delete-account-div {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  justify-content: center;
+  align-self: center;
+}
+
+.desc-delete-account {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 40px;
+  line-height: 48px;
+  text-align: center;
+}
+
+.buttos-div-delete-account {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  height: 70px;
+  justify-content: center;
+  align-self: center;
+  margin-top: 40em;
+}
+
+.buttos-div-delete-account .button-back-account {
+  font-size: 36px;
+  width: 300px;
+}
+
+.buttos-div-delete-account .button-delete-account {
+  font-size: 36px;
+  width: 300px;
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
