@@ -24,10 +24,10 @@ export default function Menu() {
   const navigate = useNavigate();
   const [sessionNumber, setSessionNumber] = useState('');
 
-  // const handleSignOff = () => {
-  //   auth.singOutUser();
-  //   window.location.reload();
-  // };
+  const handleSignOff = () => {
+    auth.singOutUser();
+    window.location.reload();
+  };
 
   const handleInputChange = (event) => {
     setSessionNumber(event.target.value);
@@ -40,7 +40,9 @@ export default function Menu() {
     <main className="container">
       <div className="header-menu">
         <img src={logo} alt="logo" className="logo-menu" />
-
+        <Link to="/" className="disconnect-text" onClick={handleSignOff}>
+          Sair da minha conta
+        </Link>
         <Button
           className="profile-div"
           onClick={() => navigate('/userprofile')}
