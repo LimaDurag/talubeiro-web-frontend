@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 
@@ -51,13 +51,12 @@ export default function InputForm({
   return (
     <CssTextField
       label={label}
-      id="input"
       variant="standard"
       size="normal"
       fullWidth
       type={type}
       helperText={helperText}
-      defaultValue={defaultValue}
+      value={defaultValue}
       onChange={onChange}
       autoFocus
       margin={margin}

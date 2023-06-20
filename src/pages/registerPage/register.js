@@ -5,9 +5,7 @@ import Stack from '@mui/material/Stack';
 import '../../global.css';
 import './styles.css';
 
-import GoogleSignInNormalImage from '../../assets/googleNormal.svg';
-
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import auth from '../../services/auth.js';
 
 import { AuthContext } from '../../context/authContext.js';
@@ -38,6 +36,8 @@ export default function Register() {
     }
   }
 
+  
+
   // async function handleLogInWithGoogle() {
   //   const response = await auth.singinWithGoogle();
   //   if (response !== 0) {
@@ -55,7 +55,7 @@ export default function Register() {
           <Container>
             <BackButton previousPage={'/'} />
             <h1 className="register-title">CADASTRO</h1>
-            <Stack direction="column" className="">
+            <Stack direction="column">
               <div className="input-container">
                 <InputForm
                   label={'NOME DE USUÁRIO'}

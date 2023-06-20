@@ -11,7 +11,7 @@ export default function RecoverPage() {
 
   async function handleSendPasswordRecoverEmail(){
     const response = await auth.sendRecoverEmail(email);
-    if(response == 200){
+    if(response === 200){
         redirect('/');
       }
   }
