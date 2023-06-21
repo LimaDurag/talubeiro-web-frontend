@@ -36,8 +36,6 @@ export default function Register() {
     }
   }
 
-  
-
   // async function handleLogInWithGoogle() {
   //   const response = await auth.singinWithGoogle();
   //   if (response !== 0) {
@@ -53,7 +51,7 @@ export default function Register() {
         <img src={logo} alt="logo" className="logo logo-register" />
         <div className="content-box box-register">
           <Container>
-            <BackButton previousPage={'/'} />
+            <BackButton previousPage={() => navigate('/')} />
             <h1 className="register-title">CADASTRO</h1>
             <Stack direction="column">
               <div className="input-container">

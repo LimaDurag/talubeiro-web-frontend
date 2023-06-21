@@ -14,6 +14,7 @@ export default function InputForm({
   type,
   margin,
   disabled,
+  key,
 }) {
   const CssTextField = styled(TextField)({
     '& label.Mui-focused': {
@@ -49,18 +50,19 @@ export default function InputForm({
     },
   });
   return (
-    <CssTextField
-      label={label}
-      variant="standard"
-      size="normal"
-      fullWidth
-      type={type}
-      helperText={helperText}
-      value={defaultValue}
-      onChange={onChange}
-      autoFocus
-      margin={margin}
-      disabled={disabled}
-    />
+    <>
+      <CssTextField
+        label={label}
+        variant="standard"
+        size="normal"
+        fullWidth
+        type={type}
+        helperText={helperText}
+        value={defaultValue}
+        onChange={onChange}
+        margin={margin}
+        disabled={disabled}
+      />
+    </>
   );
 }

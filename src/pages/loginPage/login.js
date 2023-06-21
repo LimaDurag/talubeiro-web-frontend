@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import '../../global.css';
 import './styles.css';
 
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // Import Components
 import InputForm from '../../components/InputForm';
@@ -32,8 +32,6 @@ export default function Login() {
   //const { userCredencial, setUserCredencial } = useContext(AuthContext);
 
   const navigate = useNavigate();
-
-  function handleRedirectCreateAccount() {navigate('/register')}
 
   async function handleLogInWithEmailAndPassword() {
     // const response = await auth.singin(email, senha);
@@ -125,7 +123,7 @@ export default function Login() {
               <p className="desc-icons">Converse enquanto joga!</p>
             </Stack>
             <div className="line" />
-            <ButtonGreen buttonText={'CRIAR CONTA'} onClick={handleRedirectCreateAccount}/>
+            <ButtonGreen buttonText={'CRIAR CONTA'} linkButton={'/register'} />
             <img
               src={GoogleSignInNormalImage}
               onClick={handleLogInWithGoogle}
