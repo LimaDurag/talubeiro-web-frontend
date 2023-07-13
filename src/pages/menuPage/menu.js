@@ -40,9 +40,9 @@ export default function Menu() {
     <main className="container">
       <div className="header-menu">
         <img src={logo} alt="logo" className="logo-menu" />
-        <Link to="/" className="disconnect-text" onClick={handleSignOff}>
+        {/* <Link to="/" className="disconnect-text" onClick={handleSignOff}>
           Sair da minha conta
-        </Link>
+        </Link> */}
         <Button
           className="profile-div"
           onClick={() => navigate('/userprofile')}
@@ -64,6 +64,9 @@ export default function Menu() {
               onChange={handleInputChange}
             />
           </div>
+          <Link to="/" className="disconnect-text" onClick={handleSignOff}>
+            Sair da minha conta
+          </Link>
           <div className="div-buttons">
             <ButtonGreen
               buttonText={'JUNTAR-SE A SALA'}

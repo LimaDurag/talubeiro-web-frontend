@@ -3,7 +3,7 @@ import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import { Link } from 'react-router-dom';
 import '../../global.css';
-import './styles.css';
+import './styles.scss';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -76,8 +76,10 @@ export default function Login() {
 
   return (
     <>
-      <main className="container">
+      <header className="header-logo">
         <img src={logo} alt="logo" className="logo" />
+      </header>
+      <main className="container">
         <div className="content-box">
           <Container>
             <h1 className="login-title">ENTRAR</h1>

@@ -58,8 +58,8 @@ export default function InputForm({
         fullWidth
         type={type}
         helperText={helperText}
-        value={defaultValue}
-        onChange={onChange}
+        defaultValue={defaultValue}
+        onBlur={onChange}
         margin={margin}
         disabled={disabled}
       />
