@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, redirect } from 'react-router-dom';
 
 import {
   Select,
@@ -38,13 +38,18 @@ export default function CreateRoom() {
 
   const handleModoChange = (event) => setModo(event.target.value);
 
+  const handleRedirect = (sessionNumber) => {
+    navigate(`/session/${sessionNumber}`);
+  };
+
   const handleCreate = () => {
     // console.log(`Modo: ${modo}, Senha: ${password}`);
     // handleClose();
     const randomNumbers = generateRandomNumbers(1, 5);
     const randomNumber = randomNumbers[0];
-    initRoom(randomNumber, { modo: modo, senha: password });
-    navigate(`/session/${randomNumber}`);
+    console.log(randomNumber)
+    try{initRoom(randomNumber, { modo: modo, senha: password });}catch(e){console.log(e)}
+    handleRedirect(randomNumber);
   };
 
   const handlePasswordChange = (event) => setPassword(event.target.value);

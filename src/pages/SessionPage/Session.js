@@ -4,7 +4,10 @@ import { useParams } from "react-router-dom";
 import '../../global.css';
 import './styles.css';
 
-import { Grid, Paper, Box, Button } from '@mui/material';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 import { useNavigate } from 'react-router-dom';
 
 import { SocketContext } from "../../context/socketContext.js";
@@ -18,6 +21,7 @@ import useChat from '../../hooks/useChat';
 import ChatComponent from "../../components/chatComponent/ChatComponent.js";
 import PasswordPopup from "../../components/PasswordPopupComponent/PasswordPopup";
 import Tabletop from '../../components/TabletopComponent';
+import Game from "../../components/Game";
 // import useChat from "../../hooks/useChat.js";
 
 export default function Session(props) {
@@ -70,23 +74,20 @@ export default function Session(props) {
   }
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Container>
       {isAutenticated ? 
-        <><Box sx={{ flexGrow: 1 }}>
-          <Paper sx={{ height: '100vh' }}>         
-            <Grid container>
-              <Button onClick={handleRollDice}>
-                ROLAR DADOS
-              </Button>
-              <Tabletop/>
-            </Grid>
-          </Paper>
-        </Box>
-        <ChatComponent roomId={roomId} /> </> 
+       <Row style={{backgroundColor: "#FFF"}}>
+        <Col xs={6}>
+          <Game />
+        </Col>
+        <Col>
+          <ChatComponent roomId={roomId} />
+        </Col>
+       </Row> 
     : 
       <PasswordPopup state={isAutenticated} onAuthenticate={handleChangeAuthentication} roomNumber={roomId} />
     }
       
-    </Box>
+    </Container>
   );
 }
