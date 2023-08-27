@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import '../../global.css';
 import './styles.css';
 
-import { Grid, Paper, Box, Button } from '@mui/material';
+import { Grid, Paper, Box, Button, Drawer } from '@mui/material';
 
 import { SocketContext } from "../../context/socketContext.js";
 
@@ -21,15 +21,21 @@ export default function Session(props) {
   
   const { roomId } = useParams();
   
-  const { rollDice } = useDice();
-  const { diceMessage } = useChat(roomId)
-
   const [isAutenticated, setAutenticated] = useState(false); 
   const [user, setUser] = useState({});
   // const { messages, sendMessage } = useChat(roomId);
   // const [newMessage, setNewMessage] = React.useState("");
   socket.emit('join',roomId)
 
+  const [open, setOpen] = useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     var userInfo = JSON.parse(localStorage.getItem('info'));
@@ -49,28 +55,33 @@ export default function Session(props) {
     setAutenticated(value)
   }
 
-  function handleRollDice(){
-    let results = rollDice({num:2, range:6});
-    diceMessage(results, user.name, user.avatar_link)
-  }
-
   return (
-    <Box sx={{ display: 'flex' }}>
-      {isAutenticated ? 
-        <><Box sx={{ flexGrow: 1 }}>
-          <Paper sx={{ height: '100vh' }}>         
-            <Grid container>
-              <Button onClick={handleRollDice}>
-                ROLAR DADOS
-              </Button>
-            </Grid>
-          </Paper>
-        </Box>
-        <ChatComponent roomId={roomId} /> </> 
-    : 
-      <PasswordPopup state={isAutenticated} onAuthenticate={handleChangeAuthentication} roomNumber={roomId} />
-    }
-      
-    </Box>
+    <>
+      <Button onClick={handleDrawerOpen} className="overlay-button">Open Chat</Button>
+      <Drawer
+        anchor="right"
+        open={open}
+        onClose={handleDrawerClose}
+      >
+        <ChatComponent roomId={roomId} />
+      </Drawer>
+      <Box sx={{ display: 'flex' }}>
+        {isAutenticated ? 
+          <><Box sx={{ flexGrow: 1 }}>
+            <Paper sx={{ height: '100vh' }}>         
+              <Grid container>
+              </Grid>
+              <iframe
+                title="My application widget"
+                src="https://www.intrepidcoder.com/projects/monopoly/">
+            </iframe>
+            </Paper>
+          </Box> </> 
+      : 
+        <PasswordPopup state={isAutenticated} onAuthenticate={handleChangeAuthentication} roomNumber={roomId} />
+      }
+        
+      </Box>
+    </>
   );
 }
