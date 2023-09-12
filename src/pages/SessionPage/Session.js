@@ -30,9 +30,6 @@ export default function Session(props) {
   const { roomId } = useParams();
   const navigate = useNavigate();
   
-  const { rollDice } = useDice();
-  const { diceMessage } = useChat(roomId)
-
   const [isAutenticated, setAutenticated] = useState(false); 
   const [user, setUser] = useState({});
   const [roomInfo, setRoomInfo] = useState({});
@@ -41,15 +38,16 @@ export default function Session(props) {
   async function handleSearchRoom(roomId){
     setRoomInfo(await searchRoom(roomId));
   }
+  
+  const [open, setOpen] = useState(false);
 
-  function handleChangeAuthentication(value){
-    setAutenticated(value)
-  }
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
 
-  function handleRollDice(){
-    let results = rollDice({num:2, range:6});
-    diceMessage(results, user.name, user.avatar_link)
-  }
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     handleSearchRoom(roomId);
@@ -66,28 +64,36 @@ export default function Session(props) {
     }
   }, [roomId]);
 
-    
-  if (roomInfo != null) {
-    socket.emit('join', roomId);
-  }else{
-    navigate('/');
-  }
+  const userString = JSON.stringify(user);
+  console.log(userString);
 
   return (
-    <Container>
-      {isAutenticated ? 
-       <Row style={{backgroundColor: "#FFF"}}>
-        <Col xs={6}>
-          <Game />
-        </Col>
-        <Col>
-          <ChatComponent roomId={roomId} />
-        </Col>
-       </Row> 
-    : 
-      <PasswordPopup state={isAutenticated} onAuthenticate={handleChangeAuthentication} roomNumber={roomId} />
-    }
-      
-    </Container>
+    <>
+      {/* <Button onClick={handleDrawerOpen} className="overlay-button">Open Chat</Button>
+      <Drawer
+        anchor="right"
+        open={open}
+        onClose={handleDrawerClose}
+      >
+        <ChatComponent roomId={roomId} />
+      </Drawer> */}
+      <Box sx={{ display: 'flex' }}>
+        {isAutenticated ? 
+          <><Box sx={{ flexGrow: 1 }}>
+            <Paper sx={{ height: '100vh' }}>         
+              <Grid container>
+              </Grid>
+              <iframe
+                title="My application widget"
+                src={`http://localhost:3456?roomId=${roomId}&userName=${user.name}&userPhoto=${user.avatar_link}`}>
+            </iframe>
+            </Paper>
+          </Box> </> 
+      : 
+        <PasswordPopup state={isAutenticated} onAuthenticate={handleChangeAuthentication} roomNumber={roomId} />
+      }
+        
+      </Box>
+    </>
   );
 }
