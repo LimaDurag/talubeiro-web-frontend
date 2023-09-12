@@ -1,32 +1,44 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useContext, useEffect} from 'react';
 import { useParams } from "react-router-dom";
 import '../../global.css';
 import './styles.css';
 
-import { Grid, Paper, Box, Button, Drawer } from '@mui/material';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
+import { useNavigate } from 'react-router-dom';
 
 import { SocketContext } from "../../context/socketContext.js";
 
 import userAPI from '../../services/userAPI';
+import { searchRoom } from '../../services/database'
 
 import useDice from '../../hooks/useDice';
 import useChat from '../../hooks/useChat';
 
 import ChatComponent from "../../components/chatComponent/ChatComponent.js";
 import PasswordPopup from "../../components/PasswordPopupComponent/PasswordPopup";
+import Tabletop from '../../components/TabletopComponent';
+import Game from "../../components/Game";
 // import useChat from "../../hooks/useChat.js";
 
 export default function Session(props) {
   const socket = useContext(SocketContext)
   
   const { roomId } = useParams();
+  const navigate = useNavigate();
   
   const [isAutenticated, setAutenticated] = useState(false); 
   const [user, setUser] = useState({});
+  const [roomInfo, setRoomInfo] = useState({});
   // const { messages, sendMessage } = useChat(roomId);
   // const [newMessage, setNewMessage] = React.useState("");
-  socket.emit('join',roomId)
-
+  async function handleSearchRoom(roomId){
+    setRoomInfo(await searchRoom(roomId));
+  }
+  
   const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
@@ -38,6 +50,7 @@ export default function Session(props) {
   };
 
   useEffect(() => {
+    handleSearchRoom(roomId);
     var userInfo = JSON.parse(localStorage.getItem('info'));
     if (userInfo && userInfo.uid) {
       setUser(userInfo);
@@ -49,11 +62,7 @@ export default function Session(props) {
       userInfo = JSON.parse(localStorage.getItem('info'));
       setUser(userInfo);
     }
-  }, []);
-
-  function handleChangeAuthentication(value){
-    setAutenticated(value)
-  }
+  }, [roomId]);
 
   const userString = JSON.stringify(user);
   console.log(userString);

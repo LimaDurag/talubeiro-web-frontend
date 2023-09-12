@@ -5,9 +5,7 @@ import Stack from '@mui/material/Stack';
 import '../../global.css';
 import './styles.css';
 
-import GoogleSignInNormalImage from '../../assets/googleNormal.svg';
-
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import auth from '../../services/auth.js';
 
 import { AuthContext } from '../../context/authContext.js';
@@ -53,9 +51,9 @@ export default function Register() {
         <img src={logo} alt="logo" className="logo logo-register" />
         <div className="content-box box-register">
           <Container>
-            <BackButton />
+            <BackButton previousPage={() => navigate('/')} />
             <h1 className="register-title">CADASTRO</h1>
-            <Stack direction="column" className="">
+            <Stack direction="column">
               <div className="input-container">
                 <InputForm
                   label={'NOME DE USUÁRIO'}

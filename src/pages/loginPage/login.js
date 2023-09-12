@@ -1,9 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../../global.css';
-import './styles.css';
+import './styles.scss';
+
+import { useNavigate } from 'react-router-dom';
 
 // Import Components
 import InputForm from '../../components/InputForm';
@@ -13,8 +15,6 @@ import ButtonYellow from '../../components/buttonYellow/buttonYellow';
 
 import auth from '../../services/auth.js';
 import userAPI from '../../services/userAPI.js';
-
-import { AuthContext } from '../../context/authContext.js';
 
 // Import Images
 import logo from '../../assets/Images/logo.png';
@@ -29,9 +29,9 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
-  const { userCredencial, setUserCredencial } = useContext(AuthContext);
+  //const { userCredencial, setUserCredencial } = useContext(AuthContext);
 
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   async function handleLogInWithEmailAndPassword() {
     // const response = await auth.singin(email, senha);
@@ -46,7 +46,6 @@ export default function Login() {
       .singin(email, senha)
       .then((response) => {
         if (response !== 0) {
-          setUserCredencial(response);
           localStorage.setItem('user', JSON.stringify(response));
           userAPI.getByToken(response.uid).then((response) => {
             localStorage.setItem('info', JSON.stringify(response));
@@ -63,7 +62,6 @@ export default function Login() {
       .singinWithGoogle()
       .then((response) => {
         if (response !== 0) {
-          setUserCredencial(response);
           localStorage.setItem('user', JSON.stringify(response));
           userAPI.getByToken(response.uid).then((response) => {
             localStorage.setItem('info', JSON.stringify(response));
@@ -78,8 +76,10 @@ export default function Login() {
 
   return (
     <>
-      <main className="container">
+      <header className="header-logo">
         <img src={logo} alt="logo" className="logo" />
+      </header>
+      <main className="container">
         <div className="content-box">
           <Container>
             <h1 className="login-title">ENTRAR</h1>
@@ -125,7 +125,7 @@ export default function Login() {
               <p className="desc-icons">Converse enquanto joga!</p>
             </Stack>
             <div className="line" />
-            <ButtonGreen buttonText={'CRIAR CONTA'} />
+            <ButtonGreen buttonText={'CRIAR CONTA'} linkButton={'/register'} />
             <img
               src={GoogleSignInNormalImage}
               onClick={handleLogInWithGoogle}
@@ -136,30 +136,6 @@ export default function Login() {
           </Container>
         </div>
         <img src={logoBottom} alt="logoBottom" className="logo-bottom" />
-
-        {/* 
-          
-
-          <button
-            className="button-red"
-            onClick={handleLogInWithEmailAndPassword}
-          >
-            Login
-          </button>
-          <span className="button-forget">
-            <Link to="/recover">Esqueceu a Senha?</Link>
-          </span>
-          <img
-            src={GoogleSignInNormalImage}
-            onClick={handleLogInWithGoogle}
-            width="50px"
-          />
-          <div className="line" />
-          <p className="textCreateAcount">Não tem uma conta?</p>
-          <button className="button-green">
-            <Link to="/register"> Criar </Link>{' '}
-          </button>
-        </div> */}
       </main>
     </>
   );

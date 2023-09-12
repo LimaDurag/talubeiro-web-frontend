@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 
@@ -12,6 +12,9 @@ export default function InputForm({
   onChange,
   defaultValue,
   type,
+  margin,
+  disabled,
+  key,
 }) {
   const CssTextField = styled(TextField)({
     '& label.Mui-focused': {
@@ -26,6 +29,8 @@ export default function InputForm({
       fontStyle: 'normal',
       fontWeight: '900',
       paddingTop: 20,
+      zIndex: 1,
+      marginLeft: 12,
     },
     '& .MuiInputLabel-root': {
       color: '#000',
@@ -45,17 +50,19 @@ export default function InputForm({
     },
   });
   return (
-    <CssTextField
-      label={label}
-      id="input"
-      variant="standard"
-      size="normal"
-      fullWidth
-      type={type}
-      helperText={helperText}
-      defaultValue={defaultValue}
-      onChange={onChange}
-      autoFocus
-    />
+    <>
+      <CssTextField
+        label={label}
+        variant="standard"
+        size="normal"
+        fullWidth
+        type={type}
+        helperText={helperText}
+        defaultValue={defaultValue}
+        onBlur={onChange}
+        margin={margin}
+        disabled={disabled}
+      />
+    </>
   );
 }

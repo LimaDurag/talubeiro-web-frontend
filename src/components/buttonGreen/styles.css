@@ -11,4 +11,12 @@
   align-self: center;
 
   box-shadow: 5px 5px 0px 0px #058312;
+  text-decoration: none;
+}
+
+.button-green .image-button {
+  object-fit: contain;
+  width: 32px;
+  position: absolute;
+  margin-left: -45px;
 }

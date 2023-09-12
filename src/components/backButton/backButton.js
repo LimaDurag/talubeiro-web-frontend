@@ -5,14 +5,15 @@ import './styles.css';
 
 import backbutton from '../../assets/Images/navigationImage/backButton.png';
 
-function BackButton({ onClick, buttonText }) {
+function BackButton({ previousPage }) {
   const navigate = useNavigate();
 
   return (
-    <button className="button-back">
-      <Link to="/">
-        <img src={backbutton} alt="button back" className="back-img" />
-      </Link>
+    <button
+      className="button-back button-back-profileUser"
+      onClick={previousPage}
+    >
+      <img src={backbutton} alt="button back" className="back-img" />
     </button>
   );
 }
