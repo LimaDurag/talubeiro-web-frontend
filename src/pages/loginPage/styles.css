@@ -1,0 +1,133 @@
+.container .logo {
+  object-fit: contain;
+  width: 282px;
+  height: 47px;
+  top: 0%;
+  margin-top: 100px;
+}
+
+.container .content-box {
+  display: flex;
+  background-color: #f2f2f2;
+  width: 90vw;
+  max-height: 650px;
+  margin-top: 20px;
+
+  border-radius: 25px;
+  border: 2px solid black;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.container .logo-bottom {
+  object-fit: contain;
+  width: 120px;
+  height: 24px;
+  bottom: 0%;
+  left: 0%;
+  margin-left: 95px;
+  margin-bottom: 100px;
+}
+
+.content-box .login-title {
+  margin-top: 55px;
+  margin-left: 50px;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 54px;
+  line-height: 65px;
+}
+
+.content-box .button-forget {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 15px;
+  text-decoration-line: underline;
+  color: #0061d3;
+
+  margin-left: 50px;
+  margin-top: 25px;
+}
+
+.content-box .input-container {
+  margin-left: 50px;
+  margin-top: 42px;
+}
+
+.content-box .button-div {
+  margin-left: 140px;
+  margin-top: 100px;
+}
+
+.content-box .divide-img {
+  left: 46.2%;
+  margin-top: 30px;
+}
+
+.content-box .icons-1 {
+  object-fit: contain;
+  width: 80px;
+  height: 80px;
+  margin-left: 70px;
+}
+.content-box .icons-2 {
+  object-fit: contain;
+  width: 80px;
+  height: 80px;
+  margin-left: 270px;
+}
+.content-box .icons-3 {
+  object-fit: contain;
+  width: 80px;
+  height: 80px;
+  margin-left: 500px;
+}
+
+.content-box .desc-icons {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+  margin-top: 100px;
+  margin-left: 25px;
+}
+
+.content-box .line {
+  width: 390px;
+  height: 0px;
+  margin-top: 90px;
+  margin-left: 160px;
+  border: 2px solid #daa404;
+}
+
+.content-box .button-green {
+  margin-top: 90px;
+  margin-left: 50px;
+  width: 230px;
+  height: 50;
+}
+.content-box .button-yellow {
+  margin-top: 40px;
+  margin-left: 170px;
+  font-size: 20px;
+  width: 380px;
+  height: 50;
+}
+
+.content-box .img-google {
+  margin-top: 95px;
+  margin-left: 110px;
+}
+
+.css-1p5q5e5-MuiStack-root {
+  max-width: 430px;
+}
+.css-w4z10b-MuiStack-root {
+  max-width: 650px;
+  max-height: 130px;
+  margin-top: 110px;
+}

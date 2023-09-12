@@ -1,0 +1,32 @@
+.container .box-register {
+  flex-direction: column;
+  width: 60vw;
+  max-height: 700px;
+}
+
+.container .logo-register {
+  margin-top: 80px;
+}
+
+.box-register .register-title {
+  margin-top: 10px;
+  text-align: center;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 54px;
+  line-height: 65px;
+
+  color: #000000;
+}
+
+.css-nen11g-MuiStack-root {
+  max-width: 60%;
+  margin-left: 175px;
+}
+
+.box-register .button-register {
+  font-size: 32px;
+  width: 300px;
+  padding: 10px;
+}

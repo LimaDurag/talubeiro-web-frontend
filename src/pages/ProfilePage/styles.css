@@ -1,0 +1,73 @@
+.menu-box {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-color: #f2f2f2;
+  border-radius: 103px;
+  margin: 25px;
+  width: 40vw;
+  height: 70vh;
+  font-size: 1em;
+  box-shadow: 20px 15px 0px 0px rgba(218, 164, 4, 1);
+}
+
+.menu-box .menu-title {
+  font-weight: 900;
+  font-size: 3em;
+
+  text-align: cente;
+}
+
+.loginBox form {
+  margin-left: 35px;
+}
+
+.loginBox form div {
+  margin-bottom: 10px;
+}
+
+.loginBox form label {
+  font-size: 32;
+  font-weight: 900;
+}
+
+.loginBox form .inputContainer .input {
+  font-size: 32;
+  font-weight: bold;
+  width: 350px;
+}
+
+.loginBox .button-red {
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+  border-width: 1px;
+  background-color: #bf0513;
+  color: white;
+  font-weight: 900;
+  align-self: center;
+
+  box-shadow: 5px 5px 0px 0px #ac0411;
+}
+.loginBox .button-green {
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+  border-width: 1px;
+  background-color: #08a617;
+  color: white;
+  font-weight: 900;
+  align-self: center;
+
+  box-shadow: 5px 5px 0px 0px #058312;
+}
+
+.loginBox .line {
+  height: 1px;
+  background: black;
+}
+.loginBox .textCreateAcount {
+  align-self: center;
+  font-weight: 900;
+  margin: 20px 0px 20px 0px;
+}

@@ -1,29 +1,33 @@
 //import firebase from 'firebase';
-//import { auth } from '../config/firebase.js'
+import { app } from '../config/firebase.js'
 import userAPI from "./userAPI.js"; 
 
 import { getAuth, 
-    createUserWithEmailAndPassword, 
+    createUserWithEmailAndPassword,
+    sendPasswordResetEmail, 
     signInWithEmailAndPassword, 
-    GoogleAuthProvider } from "firebase/auth";
+    GoogleAuthProvider,
+    signInWithPopup,
+    signOut } from "firebase/auth";
 
-const auth = getAuth();
+export const auth = getAuth(app);
 auth.useDeviceLanguage();
-const googleProvider = GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
 
 
 const authFirebase = {
     register: (email, password, name) => {
-        createUserWithEmailAndPassword(auth, email, password)
+        return createUserWithEmailAndPassword(auth, email, password)
         .then(async (userCredencial) => {
             const user = userCredencial.user;
             console.log("USER AUTHENTICATED:");
             console.log(user);
 
             //CREATE USER ON DATABASE
-            return userAPI.create(name, password, email, await user.getIdToken());
+            userAPI.create(name, email, user.uid);
             
+            return userCredencial;
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -34,39 +38,70 @@ const authFirebase = {
             return 0;
         })
     },
-    singin: (email, password) => {
-        signInWithEmailAndPassword(auth, email, password)
+    singin: async (email, password) => {
+        return await signInWithEmailAndPassword(auth, email, password)
         .then((userCredencial) => {
             const user = userCredencial.user;
             console.log("USER LOGGED:");
-            console.log(user)
+            console.log(user);
+            return user;
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
 
             console.log("ERRO AO FAZER LOGIN: ERROR CODE:"+errorCode+" ERROR MESSAGE: "+errorMessage);
+            return 0;
         })
     },
-    singinWithGoogle: () => {
-        signInWithPopup(auth, googleProvider)
-        .then((result) => {
+    singinWithGoogle: async () => {
+        return signInWithPopup(auth, googleProvider)
+        .then(async (result) => {
             const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
+            // const token = credential.accessToken;
             const user = result.user;
 
             console.log("USER CREATED W/ GOOGLE:");
-            console.log(user)
+            console.log(user);
+
+            if(userAPI.getByToken(user.uid) === 0){
+                userAPI.create(user.displayName, user.email, user.uid);
+                const userDb = await userAPI.getByToken(user.uid);
+                userAPI.update(userDb.id, userDb.name, userDb.email, userDb.token, user.photoURL)
+            }
+            
+            return user;
             
         }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            const email = error.customData.email;
-            const credential = GoogleAuthProvider.credentialFromError(error);
+            // const email = error.customData.email;
+            // const credential = GoogleAuthProvider.credentialFromError(error);
 
             console.log("ERRO AO FAZER LOGIN: ERROR CODE:"+errorCode+" ERROR MESSAGE: "+errorMessage);
+
+            return 0;
         });
+    },
+    sendRecoverEmail: (email) => {
+        return sendPasswordResetEmail(auth, email)
+        .then(() => {
+            return 200;
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log("ERRO AO FAZER LOGIN: ERROR CODE:"+errorCode+" ERROR MESSAGE: "+errorMessage);
+          });
+    },
+    singOutUser: () => {
+        signOut(auth).then(() => {
+            localStorage.setItem("user", "");
+          }).catch((error) => {
+            console.log("ERRO AO DESLOGAR: "+error);
+          });
     }
+    
 }
 
 export default authFirebase;

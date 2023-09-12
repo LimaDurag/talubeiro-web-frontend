@@ -1,12 +1,23 @@
-html,
-body {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  flex: 1;
   font-family: 'Inter', sans-serif;
 }
+
 .container {
+  flex: 1;
   width: 100vw;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background-image: url(././assets//Images/background.png);
+  background-color: #cccccc;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
