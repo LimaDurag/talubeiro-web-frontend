@@ -57,14 +57,14 @@ export default function Session(props) {
 
   return (
     <>
-      <Button onClick={handleDrawerOpen} className="overlay-button">Open Chat</Button>
+      {/* <Button onClick={handleDrawerOpen} className="overlay-button">Open Chat</Button>
       <Drawer
         anchor="right"
         open={open}
         onClose={handleDrawerClose}
       >
         <ChatComponent roomId={roomId} />
-      </Drawer>
+      </Drawer> */}
       <Box sx={{ display: 'flex' }}>
         {isAutenticated ? 
           <><Box sx={{ flexGrow: 1 }}>
@@ -73,7 +73,7 @@ export default function Session(props) {
               </Grid>
               <iframe
                 title="My application widget"
-                src="https://www.intrepidcoder.com/projects/monopoly/">
+                src="http://localhost:3456/">
             </iframe>
             </Paper>
           </Box> </> 
