@@ -55,6 +55,9 @@ export default function Session(props) {
     setAutenticated(value)
   }
 
+  const userString = JSON.stringify(user);
+  console.log(userString);
+
   return (
     <>
       {/* <Button onClick={handleDrawerOpen} className="overlay-button">Open Chat</Button>
@@ -73,7 +76,7 @@ export default function Session(props) {
               </Grid>
               <iframe
                 title="My application widget"
-                src="http://localhost:3456/">
+                src={`http://localhost:3456?roomId=${roomId}&userName=${user.name}&userPhoto=${user.avatar_link}`}>
             </iframe>
             </Paper>
           </Box> </> 

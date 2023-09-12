@@ -41,6 +41,8 @@ const state = {
   loaded: true,
 };
 
+const rooms = {};
+
 /// ///////////////////////////////////////////////////////////////////////////////
 /// ///////////////////////////////FUNCTIONS///////////////////////////////////////
 /// ///////////////////////////////////////////////////////////////////////////////
@@ -133,6 +135,15 @@ const colors = ['black', 'white', 'orange', 'red', 'blue', 'green', 'yellow'];
 // On client connection
 io.on('connection', (socket) => {
   socket.emit('update', state);
+
+  socket.on('join', function(roomId) {
+    socket.join(roomId);
+    if (!rooms[roomId]) {
+      rooms[roomId] = [];
+    }
+    rooms[roomId].push(socket.id);
+    console.log("USER CONNECTED ON A: "+roomId)
+  });
 
   // when a new player enters
   socket.on('new player', (newName) => {

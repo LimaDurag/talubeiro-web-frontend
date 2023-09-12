@@ -50,12 +50,17 @@ const reducer = (state, action) => {
 // TODO: make into function and export it as function ??
 
 export default function App() {
+  const queryParams = new URLSearchParams(window.location.search)
+  const roomId =  queryParams.get('roomId');
+  const userName = (queryParams.get('userName'));
+
   const [state, dispatch] = useReducer(reducer, initialState);
   const [playerId, setPlayerId] = useState(false);
 
   if (!playerId) {
     socket.on('connect', () => {
       // setPlayerId(1);
+      socket.emit('join', roomId)
       setPlayerId(socket.id);
     });
   }
@@ -65,7 +70,7 @@ export default function App() {
 
   return (
     <stateContext.Provider value={{
-      state, socketFunctions, playerId, socket,
+      state, socketFunctions, playerId, socket, userName
     }}
     >
       <main className="App">

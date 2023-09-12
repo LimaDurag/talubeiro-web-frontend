@@ -28,17 +28,15 @@ const reducer = (state, action) => {
 
 function Board() {
   const [cardsBack, dispatch] = useReducer(reducer, backOfCards);
-  const { socketFunctions, playerId } = useContext(stateContext);
+  const { socketFunctions, playerId, userName } = useContext(stateContext);
 
   const [tiles] = useState(initialState);
   const [openSale, setOpenSale] = useState(false);
   const [privateSale, setPrivateSale] = useState(false);
   
   useEffect(() => {
-    let playerName = '';
-    while (!playerName) playerName = prompt('What is your name?');
-    socketFunctions.newPlayer(playerName);
-  }, [socketFunctions]);
+    socketFunctions.newPlayer(userName);
+  }, [socketFunctions, userName]);
 
   const handlePutOpenMarket = tileID => {
     setOpenSale({ tileID, playerId });
