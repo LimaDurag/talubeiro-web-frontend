@@ -245,8 +245,8 @@ export default function Dashboard() {
               )
               : 'Loading...'}
           </h3>
-          { state.loaded ? state.boardState.players.map((keyName, i) => (
-                Object.keys(state.players)[0] === keyName ?  <button className="input-label" onClick={() => socketFunctions.kick(keyName)}>Banir {state.players[keyName].name}</button> : null
+          { state.loaded && Object.keys(state.players)[0] === socket.id  ? state.boardState.players.map((keyName, i) => (
+            keyName === socket.id ? null :  <button className="input-label" onClick={() => socketFunctions.kick(keyName)}>Banir {state.players[keyName].name}</button>
           )): null }
         </section>
       </section>
