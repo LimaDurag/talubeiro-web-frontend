@@ -43,6 +43,7 @@ export default function Dashboard() {
       alert.show(`${ownerName} accepted your offer to buy ${tileName} for $${price}M`);
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
+ 
   }, []);
 
   const handleAcceptOffer = offer => {
@@ -66,6 +67,8 @@ export default function Dashboard() {
     setOpenSale(false);
     setPrivateSale(false);
   };
+
+  console.log(state);
 
   return (
     <>
@@ -242,6 +245,9 @@ export default function Dashboard() {
               )
               : 'Loading...'}
           </h3>
+          { state.loaded ? state.boardState.players.map((keyName, i) => (
+                Object.keys(state.players)[0] === keyName ?  <button className="input-label" onClick={() => socketFunctions.kick(keyName)}>Banir {state.players[keyName].name}</button> : null
+          )): null }
         </section>
       </section>
     </>

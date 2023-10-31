@@ -136,6 +136,12 @@ const colors = ['black', 'white', 'orange', 'red', 'blue', 'green', 'yellow'];
 io.on('connection', (socket) => {
   socket.emit('update', state);
 
+  socket.on('kick', (socketId) => {
+    io.sockets.sockets.get(socketId).emit('kicked');
+    //console.log(io.sockets.sockets.get(socketId));
+   //` console.log(socketId);
+  });
+
   socket.on('join', function(roomId) {
     socket.join(roomId);
     if (!rooms[roomId]) {
@@ -156,9 +162,16 @@ io.on('connection', (socket) => {
         accountBalance: 1500,
         isJail: false,
         jailRounds: 0,
+        isHost: false,
+        //socket: socket,
       };
+
       sendToLog(`${newName} joined the game as ${state.players[socket.id].color}`);
       state.boardState.players = Object.keys(state.players);
+      state.players[id].isHost = socket.id == state.boardState.players[0] ? true : false,
+      console.log(state);
+      console.log(Object.keys(state.players))
+
     } else {
       sendToLog(`${newName}, game has already started, you are not able to join!`);
     }

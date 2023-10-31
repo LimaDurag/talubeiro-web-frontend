@@ -57,6 +57,10 @@ export default function Profile() {
     setImage(file);
   }
 
+  function handleSetNickname(event) {
+    setNickname(event.target.value);
+  }
+
   const handleUploadAvatar = async () => {
     // userAPI.uploadImageToFirebaseStorage(user.token, image);
     console.log(user.id);
@@ -107,33 +111,34 @@ export default function Profile() {
       >
         <Container maxWidth>
           <div className="div-input-user">
-            <p className="label-input-user">Nome de exebição</p>
+            <p className="label-input-user">Nome de exibição</p>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <InputForm label={'Zé da manga'} />
+              <InputForm label={user.name} onChange={handleSetNickname}/>
               <img
                 src={editIcon}
                 alt="edit user input img"
                 className="edit-icon"
+                onClick={handleUpdateNickname}
               />
             </div>
-            <p className="label-input-user">Email</p>
+            <p className="label-input-user">E-mail</p>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <InputForm label={'zemanga@gmail.com'} />
-              <img
+              <InputForm label={user.email} />
+              {/* <img
                 src={editIcon}
                 alt="edit user input img"
                 className="edit-icon"
-              />
+              /> */}
             </div>
 
             <p className="label-input-user">Senha</p>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
               <InputForm label={'**********'} />
-              <img
+              {/* <img
                 src={editIcon}
                 alt="edit user input img"
                 className="edit-icon"
-              />
+              /> */}
             </div>
           </div>
           <div className="style-button-delete">
@@ -148,17 +153,19 @@ export default function Profile() {
         </Container>
         <Container maxWidth>
           <div className="div-edit-profile-img">
-            <img
-              src={profileUserImage}
-              alt="Profile user Img"
-              className="profile-user-image"
-            />
+              <img
+                src={user.avatar_link ? user.avatar_link : profileUserImage}
+                alt="Profile user Img"
+                className="profile-user-image"
+              />
             <p className="text-edit-img-user">Editar foto de perfil</p>
             <ButtonGreen
               buttonText={'Upload'}
               alt={'image to upload img'}
               imgButton={uploadIcon}
+              onClick={handleUploadAvatar}
             />
+            <input type="file" onChange={handleImageUpload} />
           </div>
           <div className="style-button-confirm">
             <ButtonGreen buttonText={'Confirmar'} />

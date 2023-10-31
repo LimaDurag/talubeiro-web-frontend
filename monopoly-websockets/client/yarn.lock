@@ -8564,12 +8564,12 @@ __metadata:
 
 "monopolywebsockets@file:..::locator=client-monopolywebsockets%40workspace%3A.":
   version: 1.0.0
-  resolution: "monopolywebsockets@file:..#..::hash=96db1f&locator=client-monopolywebsockets%40workspace%3A."
+  resolution: "monopolywebsockets@file:..#..::hash=990d6d&locator=client-monopolywebsockets%40workspace%3A."
   dependencies:
     body-parser: ^1.20.0
     express: ^4.18.1
     socket.io: ^4.5.0
-  checksum: 88751ac848dd49ae59e0fc7b1d652b1fb07201f43bb6b5f44040c0d8c16fde3847de07d702e6450fbdee08bf8e76b4cf21611753c520938b398df57bcb694fae
+  checksum: 98fa731f9e4c828cd9c4ea03fd4f7d89f20c4b69fc9e6c09f36635975926f403d2b85accaf528513c738a08a7c6661a328f1fbc646e61f593202485f09ad79b2
   languageName: node
   linkType: hard
 

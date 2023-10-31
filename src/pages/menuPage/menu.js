@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -7,6 +7,7 @@ import '../../global.css';
 import './styles.css';
 
 import auth from '../../services/auth.js';
+import userAPI from '../../services/userAPI';
 
 // Import Components
 import RedirectPopup from '../../components/RedirectPopup/RedirectPopup';
@@ -23,6 +24,21 @@ import profile from '../../assets/Images/navigationImage/profile.png';
 export default function Menu() {
   const navigate = useNavigate();
   const [sessionNumber, setSessionNumber] = useState('');
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    var userInfo = JSON.parse(localStorage.getItem('info'));
+    if (userInfo && userInfo.uid) {
+      setUser(userInfo);
+    } else {
+      const userAuth = JSON.parse(localStorage.getItem('user'));
+      userAPI.getByToken(userAuth.uid).then((response) => {
+        localStorage.setItem('info', JSON.stringify(response));
+      });
+      userInfo = JSON.parse(localStorage.getItem('info'));
+      setUser(userInfo);
+    }
+  }, []);
 
   const handleSignOff = () => {
     auth.singOutUser();
@@ -48,8 +64,8 @@ export default function Menu() {
           onClick={() => navigate('/userprofile')}
         >
           {/* onClick={() => navigate('/userprofile')} */}
-          <p className="profile-text">Zé da Manga</p>
-          <img src={profile} alt="profile" className="profile-img" />
+          <p className="profile-text">{user.name}</p>
+          <img src={user.avatar_link ? user.avatar_link : profile} alt="profile" className="profile-img" />
         </Button>
       </div>
       <div className="menu-content">
@@ -72,16 +88,13 @@ export default function Menu() {
               buttonText={'JUNTAR-SE A SALA'}
               linkButton={handleRedirect}
             />
-            <ButtonRed
-              onClick={() => navigate('/create-room')}
-              buttonText={'NOVA SALA'}
-            />
+            <CreatePopup />
           </div>
         </Container>
         <Container>
           <div className="container-user-achivements">
-            <img src={profile} alt="profile" className="achivements-img" />
-            <p className="user-name">Zé da Manga</p>
+            <img src={user.avatar_link ? user.avatar_link : profile} alt="profile" className="achivements-img" />
+            <p className="user-name">{user.name}</p>
             <div className="container-achivements">
               <p className="text-achivements">Partidas Jogadas: 0</p>
               <p className="text-achivements">Jogos Ganhos: 0</p>

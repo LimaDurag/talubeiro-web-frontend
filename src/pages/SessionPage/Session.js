@@ -4,9 +4,7 @@ import { useParams } from "react-router-dom";
 import '../../global.css';
 import './styles.css';
 
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Grid, Paper, Box, Button, Drawer } from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -15,15 +13,7 @@ import { SocketContext } from "../../context/socketContext.js";
 import userAPI from '../../services/userAPI';
 import { searchRoom } from '../../services/database'
 
-import useDice from '../../hooks/useDice';
-import useChat from '../../hooks/useChat';
-
-import ChatComponent from "../../components/chatComponent/ChatComponent.js";
 import PasswordPopup from "../../components/PasswordPopupComponent/PasswordPopup";
-import Tabletop from '../../components/TabletopComponent';
-import Game from "../../components/Game";
-// import useChat from "../../hooks/useChat.js";
-
 export default function Session(props) {
   const socket = useContext(SocketContext)
   
@@ -63,6 +53,10 @@ export default function Session(props) {
       setUser(userInfo);
     }
   }, [roomId]);
+
+  function handleChangeAuthentication(value){
+    setAutenticated(value)
+  }
 
   const userString = JSON.stringify(user);
   console.log(userString);

@@ -132,7 +132,6 @@ export default function Login() {
               className="img-google"
               alt="Google sign"
             />
-            <ButtonYellow buttonText={'ENTRAR COMO CONVIDADO'} />
           </Container>
         </div>
         <img src={logoBottom} alt="logoBottom" className="logo-bottom" />

@@ -24,6 +24,7 @@ const socketFunctions = {
   makeSale: item => socket.emit('make sale', item),
   startGame: () => socket.emit('start game', ''),
   removeSale: item => socket.emit('remove sale', item),
+  kick: socketId => socket.emit('kick', socketId),
 };
 
 const initialState = {
@@ -65,6 +66,7 @@ export default function App() {
     });
   }
   useEffect(() => {
+    socket.on('kicked', () => socket.disconnect());
     socket.on('update', newState => dispatch({ type: 'updateGameState', payload: newState }));
   }, []);
 
