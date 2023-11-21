@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { useAlert } from 'react-alert';
+import { positions, useAlert } from 'react-alert';
 import { v4 as uuid } from 'uuid';
 import './style/Dashboard.css';
 import MarketPlace from './MarketPlace';
@@ -64,6 +64,7 @@ export default function Dashboard() {
     setOpenSale(false);
     setPrivateSale(false);
   };
+  
 
   console.log(state);
 
@@ -301,8 +302,11 @@ export default function Dashboard() {
                 )
               )
             : null}
+                 <a className="dice__button rules_button" id="openDialog" target="_blank" href="https://modobrincar.rihappy.com.br/regras-do-monopoly/" type="button">Rules</a>
+
         </section>
       </section>
     </>
   );
+  
 }
