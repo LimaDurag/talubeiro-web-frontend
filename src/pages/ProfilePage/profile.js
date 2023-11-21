@@ -40,12 +40,6 @@ export default function Profile() {
     }
   }, []);
 
-  const handleSignOff = () => {
-    auth.singOutUser();
-    navigate('/');
-    setTimeout(window.location.reload(), 2000);
-  };
-
   // function handleFileChange(event) {
   //   setFile(event.target.files[0]);
   // }
@@ -86,16 +80,12 @@ export default function Profile() {
     window.location.reload();
   };
 
-  const handleDeactivate = async () => {
-    await userAPI.deactivateUser(user.token);
-    handleSignOff();
-  };
-
   return (
     <main className="container">
       <ProfileModal
         isOpen={openModal}
         setCloseModal={() => setopenModal(!openModal)}
+        user={user}
       />
       <div className="header-profile">
         <BackButton previousPage={() => navigate('/')} />
@@ -113,7 +103,7 @@ export default function Profile() {
           <div className="div-input-user">
             <p className="label-input-user">Nome de exibição</p>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <InputForm label={user.name} onChange={handleSetNickname}/>
+              <InputForm label={user.name} onChange={handleSetNickname} />
               <img
                 src={editIcon}
                 alt="edit user input img"
@@ -153,11 +143,11 @@ export default function Profile() {
         </Container>
         <Container maxWidth>
           <div className="div-edit-profile-img">
-              <img
-                src={user.avatar_link ? user.avatar_link : profileUserImage}
-                alt="Profile user Img"
-                className="profile-user-image"
-              />
+            <img
+              src={user.avatar_link ? user.avatar_link : profileUserImage}
+              alt="Profile user Img"
+              className="profile-user-image"
+            />
             <p className="text-edit-img-user">Editar foto de perfil</p>
             <ButtonGreen
               buttonText={'Upload'}

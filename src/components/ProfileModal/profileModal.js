@@ -7,20 +7,33 @@ import './styles.css';
 import ButtonGreen from '../buttonGreen/buttonGreen';
 import ButtonRed from '../buttonRed/buttonRed';
 
+import userAPI from '../../services/userAPI.js';
+import auth from '../../services/auth.js';
+
 const BACKGROUND_STYLE = {
   display: 'flex',
-  position: 'fixed',
+  position: 'absolute',
   justifyContent: 'center',
   zIndex: '1000',
   width: '70%',
   height: 800,
   background: '#f2f2f2',
-  marginTop: 100,
   borderRadius: 25,
 };
 
-function ProfileModal({ isOpen, setCloseModal }) {
+function ProfileModal({ isOpen, setCloseModal, user }) {
   const navigate = useNavigate();
+
+  const handleSignOff = () => {
+    auth.singOutUser();
+    navigate('/');
+    setTimeout(window.location.reload(), 2000);
+  };
+
+  const handleDeactivate = async () => {
+    await userAPI.deactivateUser(user.token);
+    handleSignOff();
+  };
 
   if (isOpen) {
     return (
@@ -41,7 +54,7 @@ function ProfileModal({ isOpen, setCloseModal }) {
         </div>
         <div className="buttos-div-delete-account">
           <ButtonGreen buttonText={'Voltar'} onClick={setCloseModal} />
-          <ButtonRed buttonText={'Desativar'} />
+          <ButtonRed buttonText={'Desativar'} onClick={handleDeactivate} />
         </div>
       </div>
     );
