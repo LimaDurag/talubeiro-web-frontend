@@ -66,7 +66,10 @@ export default function App() {
     });
   }
   useEffect(() => {
-    socket.on('kicked', () => socket.disconnect());
+    socket.on('kicked', () => {
+      window.alert("Você foi kickado da sessão!!");
+      socket.disconnect();
+    });
     socket.on('update', newState => dispatch({ type: 'updateGameState', payload: newState }));
   }, []);
 

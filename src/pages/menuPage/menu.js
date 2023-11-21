@@ -49,6 +49,7 @@ export default function Menu() {
     setSessionNumber(event.target.value);
   };
   const handleRedirect = () => {
+    console.log(sessionNumber)
     navigate(`/session/${sessionNumber}`);
   };
 
@@ -84,10 +85,11 @@ export default function Menu() {
             Sair da minha conta
           </Link>
           <div className="div-buttons">
-            <ButtonGreen
-              buttonText={'JUNTAR-SE A SALA'}
-              linkButton={handleRedirect}
-            />
+            <div onClick={handleRedirect}>
+              <ButtonGreen
+                buttonText={'JUNTAR-SE A SALA'}
+              />
+            </div>
             <CreatePopup />
           </div>
         </Container>

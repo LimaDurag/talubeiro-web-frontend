@@ -182,3 +182,16 @@ align-items: center;
 .open-market__offer__buttons {
   display: flex;
 }
+
+.kick {
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+  margin-left: 20px; /* Espaçamento à esquerda */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
