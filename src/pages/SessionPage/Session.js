@@ -1,43 +1,62 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useState, useContext, useEffect} from 'react';
-import { useParams } from "react-router-dom";
+import React, { useState, useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import '../../global.css';
 import './styles.css';
 
-import { Grid, Paper, Box, Button, Drawer } from '@mui/material';
-
-import { useNavigate } from 'react-router-dom';
-
-import { SocketContext } from "../../context/socketContext.js";
+import { Grid, Paper, Box } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
 
 import userAPI from '../../services/userAPI';
-import { searchRoom } from '../../services/database'
+import { searchRoom } from '../../services/database';
 
-import PasswordPopup from "../../components/PasswordPopupComponent/PasswordPopup";
+import PasswordPopup from '../../components/PasswordPopupComponent/PasswordPopup';
+
+const AvatarWithName = ({ name, avatar }) => {
+  return (
+    <div>
+      <Typography
+        variant="h5"
+        component="h5"
+        sx={{ marginLeft: '30px', fontWeight: 400, color: 'white' }}
+      >
+        Usuário Logado
+      </Typography>
+      <div
+        style={{
+          backgroundColor: 'white',
+          borderRadius: '5px',
+          marginLeft: '30px',
+          marginBottom: '30px',
+          width: '10vw',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <div>
+          <Avatar src={avatar} alt={name} sx={{ borderRadius: '50%' }} />
+        </div>
+        <Typography variant="h6" component="p">
+          {name}
+        </Typography>
+      </div>
+    </div>
+  );
+};
+
 export default function Session(props) {
-  const socket = useContext(SocketContext)
-  
   const { roomId } = useParams();
-  const navigate = useNavigate();
-  
-  const [isAutenticated, setAutenticated] = useState(false); 
+
+  const [isAutenticated, setAutenticated] = useState(false);
   const [user, setUser] = useState({});
   const [roomInfo, setRoomInfo] = useState({});
   // const { messages, sendMessage } = useChat(roomId);
   // const [newMessage, setNewMessage] = React.useState("");
-  async function handleSearchRoom(roomId){
+  async function handleSearchRoom(roomId) {
     setRoomInfo(await searchRoom(roomId));
   }
-  
-  const [open, setOpen] = useState(false);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
 
   useEffect(() => {
     handleSearchRoom(roomId);
@@ -54,8 +73,8 @@ export default function Session(props) {
     }
   }, [roomId]);
 
-  function handleChangeAuthentication(value){
-    setAutenticated(value)
+  function handleChangeAuthentication(value) {
+    setAutenticated(value);
   }
 
   const userString = JSON.stringify(user);
@@ -72,21 +91,26 @@ export default function Session(props) {
         <ChatComponent roomId={roomId} />
       </Drawer> */}
       <Box sx={{ display: 'flex' }}>
-        {isAutenticated ? 
-          <><Box sx={{ flexGrow: 1 }}>
-            <Paper sx={{ height: '100vh' }}>         
-              <Grid container>
-              </Grid>
-              <iframe
-                title="My application widget"
-                src={`http://localhost:3456?roomId=${roomId}&userName=${user.name}&userPhoto=${user.avatar_link}`}>
-            </iframe>
-            </Paper>
-          </Box> </> 
-      : 
-        <PasswordPopup state={isAutenticated} onAuthenticate={handleChangeAuthentication} roomNumber={roomId} />
-      }
-        
+        {isAutenticated ? (
+          <>
+            <Box sx={{ flexGrow: 1 }}>
+              <AvatarWithName name={user.name} avatar={user.avatar_link} />
+              <Paper sx={{ height: '100vh' }}>
+                <Grid container></Grid>
+                <iframe
+                  title="My application widget"
+                  src={`http://localhost:3456?roomId=${roomId}&userName=${user.name}&userPhoto=${user.avatar_link}`}
+                ></iframe>
+              </Paper>
+            </Box>{' '}
+          </>
+        ) : (
+          <PasswordPopup
+            state={isAutenticated}
+            onAuthenticate={handleChangeAuthentication}
+            roomNumber={roomId}
+          />
+        )}
       </Box>
     </>
   );
